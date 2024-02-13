@@ -6,14 +6,13 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:10:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/02/07 15:58:44 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/02/13 10:37:49 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "../lib/libft.h"
 
 //terminal color
 #define RESET   "\033[0m"
