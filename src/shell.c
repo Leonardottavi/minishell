@@ -13,13 +13,15 @@ char PATH[1024]; // buffer to hold the home folder path
 char* builtin_commands[] = {"exit", "cd", "help", "history"}; // the built-in commands
 
 // kills the program
-void sigint_handler(int sig) {
+void sigint_handler(int sig)
+{
 	printf("minishell: killed\n");
 	exit(0);
 }
 
 // saves the history of user inputs into a hidden file called history.txt located in the home folder
-void save_history(char* input) {
+void save_history(char* input)
+{
 	strcat(strcpy(PATH, getenv("HOME")), "/.history.txt"); // concatenates the file name with the home directory path
 	FILE* history = fopen(PATH, "a"); // opens the file in append mode (creates a new file if it doesn't already exists, otherwise it adds to it without overwriting it)
 	fprintf(history, "%s", input); // writes user inputs in the file
@@ -27,7 +29,8 @@ void save_history(char* input) {
 }
 
 // gets user input
-char* get_input(char* buffer) {
+char* get_input(char* buffer)
+{
 	printf("mini-shell>"); // the shell prompt
 	fgets(buffer, MAX_BUFFER_SIZE, stdin); // scans the whole user input as a single string
 
@@ -35,7 +38,8 @@ char* get_input(char* buffer) {
 }
 
 // processes user input by tokenizing each word
-char** get_args(char* input, char** args) {
+char** get_args(char* input, char** args)
+{
 	int i = 0;
 	char* token = strtok(input, " ");
 	while (NULL != token) { // tokenizes user input
@@ -54,7 +58,8 @@ char** get_args(char* input, char** args) {
 }
 
 // exits out of the mini-shell
-int builtin_exit(char** args) {
+int builtin_exit(char** args)
+{
 	return 0;
 }
 
@@ -100,11 +105,17 @@ int builtin_history(char** args) {
 }
 
 // an array of function pointers pointing to the functions implementing the built-in commands
-int (*builtin_functions[]) (char**) = {
+int (*builtin_functions[]) (char**) =
+{
 	&builtin_exit,
 	&builtin_cd,
 	&builtin_help,
-	&builtin_history
+	&builtin_history,
+	&builtin_pwd,
+	&builtin_echo,
+	&builtin_cat,
+	&buitlin_unset,
+	&builtin_unset,
 };
 
 // executes terminal built-in commands in a separate process
