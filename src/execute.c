@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 15:43:05 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/29 19:21:32 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,15 @@ int execute(char** args) {
 	int j = 0;
 	int loop_status;
 	int i;
-	for (i = 0; i < BUILTIN_COMMANDS; i++) { // if the user inputs a built-in command, executes it
-			if (0 == strcmp(args[0], builtin_commands[i])) {
-				loop_status = (*builtin_functions[i])(args);
-				return loop_status;
-			}
+	i = 0;
+	while (i < BUILTIN_COMMANDS) // if the user inputs a built-in command, executes it
+	{
+		if (0 == strcmp(args[0], builtin_commands[i]))
+		{
+			loop_status = (*builtin_functions[i])(args);
+			return loop_status;
+		}
+		i++;
 	}
 	while (NULL != args[j]) { // if the user inputs the pipe character, executes the execute_with_pipe function
 		if (0 == strcmp(args[j], "|")) {
@@ -116,3 +120,7 @@ int execute(char** args) {
 
 	return loop_status;
 }
+#include "path.h"
+
+char* PATH = "il_tuo_percorso";
+char* builtin_commands[] = {"cmd1", "cmd2", NULL};
