@@ -6,14 +6,14 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 14:06:35 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:31:19 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // kills the program
-void sigint_handler(int sig)
+void sigint_handler()
 {
 	printf("minishell: killed\n");
 	exit(0);

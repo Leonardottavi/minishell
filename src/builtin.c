@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 14:15:24 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:30:03 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,21 @@ int builtin_echo(char** args) {
 }
 
 // prints the current working directory
-int builtin_pwd(char** args) {
-    char cwd[1024]; // buffer to hold the current working directory
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("%s\n", cwd); // prints the current working directory
+int builtin_pwd(char** args __attribute__((unused)))
+{
+    char *cwd;
+    cwd = getcwd(NULL, 0); // Dynamically allocate buffer size
+    if (cwd != NULL) {
+        printf("%s\n", cwd);
+        free(cwd); // Free the allocated memory
     } else {
-        perror("mini-shell"); // prints an error message if getcwd fails
+        perror("mini-shell");
     }
     return 1;
 }
 
 // exits out of the mini-shell
-int builtin_exit(char** args)
+int builtin_exit(char** args __attribute__((unused)))
 {
 	return 0;
 }
@@ -104,7 +107,7 @@ int builtin_cd(char** args) {
 }
 
 // prints the available built-in commands and a short description for each of them
-int builtin_help(char** args)
+int builtin_help(char** args __attribute__((unused)))
 {
 	printf("Welcome to Lottavi's mini-shell!\n");
 	printf("\tAvailable built-in commands\n:");
@@ -116,7 +119,8 @@ int builtin_help(char** args)
 }
 
 // prints the history of user inputs by reading them from a file
-int builtin_history(char** args) {
+int builtin_history(char** args __attribute__((unused)))
+{
 	FILE *history = fopen(PATH, "r"); // opens the file in reading mode
 	if (NULL == history) { // if the file doesn't exist or it's not found, prints an error message
 		fprintf(stderr, "history.txt not found\n");
