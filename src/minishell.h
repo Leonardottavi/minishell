@@ -6,9 +6,12 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 15:31:34 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/29 17:25:28 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +29,7 @@ char PATH[1024]; // buffer to hold the home folder path
 char* builtin_commands[] = {"exit", "cd", "help", "history", "env", "pwd", "echo", "unset"}; // the built-in commands
 
 // function builtins
+extern int (*builtin_functions[8])(char **);
 int builtin_exit(char** args);
 int builtin_cd(char** args);
 int builtin_help(char** args);
@@ -48,14 +52,4 @@ int execute_without_pipe(char** args);
 int execute_with_pipe(char** args);
 int execute(char** args);
 
-int (*builtin_functions[]) (char**) =
-{
-	&builtin_exit,
-	&builtin_cd,
-	&builtin_help,
-	&builtin_history,
-	&builtin_env,
-	&builtin_pwd,
-	&builtin_echo,
-	&builtin_unset,
-};
+#endif
