@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 19:21:32 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/29 19:23:01 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,3 @@ int execute(char** args) {
 
 	return loop_status;
 }
-#include "path.h"
-
-char* PATH = "il_tuo_percorso";
-char* builtin_commands[] = {"cmd1", "cmd2", NULL};
