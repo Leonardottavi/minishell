@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 16:00:09 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 17:46:55 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ int builtin_exit(char** args __attribute__((unused)))
 // changes the current directory
 int builtin_cd(char** args) {
 	if (NULL == args[1]) { // prints an error message if the user doesn't input the new directory
-		fprintf(stderr, "mini-shell: please provide the new directory\n");
+		printf("mini-shell: please provide the new directory\n");
 	} else if (chdir(args[1]) < 0) { // changes directory if the new one exists, otherwise prints an error message
 		perror("mini-shell");
 	}
-
 	return 1;
 }
 

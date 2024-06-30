@@ -6,7 +6,7 @@
 #    By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 12:33:15 by lottavi           #+#    #+#              #
-#    Updated: 2024/06/30 16:37:43 by lottavi          ###   ########.fr        #
+#    Updated: 2024/06/30 17:52:19 by lottavi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIB_DIR = lib
 NAME = minishell
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-LIBS = -L$(LIB_DIR) -libft.a
+LIBS = -L$(LIB_DIR) -lft
 
 all: libft $(NAME)
 
@@ -32,13 +32,14 @@ $(OBJ_DIR):
 	mkdir -p $@
 
 libft:
-	make -C $(LIB_DIR)/libft
+	make -C $(LIB_DIR)
 
 clean:
 	rm -f $(OBJS)
+	rm -f $(LIB_DIR)/*.o
 
 fclean: clean
-	rm -f $(NAME)
+	clean rm -f $(NAME)
 
 re: fclean all
 
