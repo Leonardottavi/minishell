@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 20:09:17 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 21:20:54 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	builtin_pwd(char **args __attribute__((unused)))
 	return (1);
 }
 
-int builtin_exit(char **args __attribute__((unused)))
+int	builtin_exit(char **args __attribute__((unused)))
 {
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 20:32:43 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 21:23:41 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		(*g_builtin_functions[BUILTIN_COMMANDS])(char**) = {
 	&builtin_pwd,
 	&builtin_echo,
 	&builtin_unset,
-	&builtin_env
+	&builtin_env,
 };
 
 int	builtin_unset(char **args)
@@ -60,18 +60,27 @@ int	builtin_env(char **args __attribute__((unused)))
 	return (0);
 }
 
-int	builtin_echo(char**args)
+int	builtin_echo(char **args)
 {
 	int	i;
+	int	newline;
 
+	newline = 1;
 	i = 1;
-	while (args[i] != NULL)
-	{
+	if (args[1] && strcmp(args[1], "-n") == 0) {
+		newline = 0; // Do not print the newline
+		i = 2; // Start printing from the next argument
+	}
+
+	while (args[i] != NULL) {
 		printf("%s", args[i]);
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
-	printf("\n");
+
+	if (newline)
+		printf("\n");
+
 	return (1);
 }
