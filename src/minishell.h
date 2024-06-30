@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 16:26:14 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 16:38:13 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
-#include "libft.h"
 
 #define MAX_BUFFER_SIZE 80 // buffer to hold user input
 #define BUILTIN_COMMANDS 8 // number of bult-in commands
