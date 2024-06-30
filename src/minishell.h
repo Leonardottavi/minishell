@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 19:11:34 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:27:48 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@
 #include <signal.h>
 
 #define MAX_BUFFER_SIZE 80 // buffer to hold user input
-#define BUILTIN_COMMANDS 8 // number of bult-in commands
+#define BUILTIN_COMMANDS 7 // number of bult-in commands
 
-char PATH[1024]; // buffer to hold the home folder path
-char* builtin_commands[] = {"exit", "cd", "help", "history", "env", "pwd", "echo", "unset"}; // the built-in commands
+extern char* PATH;
+extern char* builtin_commands[];
+extern int (*builtin_functions[])(char**);
 
-// function builtins
-extern int (*builtin_functions[8])(char **); // array of function pointers pointing to the functions implementing the built-in commands
 int builtin_exit(char** args);
 int builtin_cd(char** args);
 int builtin_help(char** args);
@@ -44,7 +43,7 @@ void sigint_handler();
 void save_history(char* input);
 char* get_input(char* buffer);
 char** get_args(char* input, char** args);
-int execute(char** args);
+
 
 //function executers
 int execute_without_pipe(char** args);

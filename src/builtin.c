@@ -6,26 +6,24 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 16:20:35 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:29:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// an array of function pointers pointing to the functions implementing the built-in commands
-int (*builtin_functions[]) (char**) =
+char* PATH;
+char* builtin_commands[] = {"exit", "cd", "help", "pwd", "echo", "unset", "cat"}; // the built-in commands
+int (*builtin_functions[]) (char**) = // the built-in functions
 {
 	&builtin_exit,
-	&builtin_pwd,
-	&builtin_echo,
-	&builtin_cat,
-	&builtin_unset,
 	&builtin_cd,
 	&builtin_help,
-	&builtin_history,
+	&builtin_pwd,
+	&builtin_echo,
+	&builtin_unset
 };
 
-// removes an environment variable
 int builtin_unset(char** args)
 {
     if (args[1] == NULL) {
@@ -115,23 +113,5 @@ int builtin_help(char** args __attribute__((unused)))
 	printf("\t-cd(changes directory\n");
 	printf("\t-help(lists the available built-in commands\n");
 	printf("\t-history(lists all previous user inputs\n");
-	return 1;
-}
-
-// prints the history of user inputs by reading them from a file
-int builtin_history(char** args __attribute__((unused)))
-{
-	FILE *history = fopen(PATH, "r"); // opens the file in reading mode
-	if (NULL == history) { // if the file doesn't exist or it's not found, prints an error message
-		fprintf(stderr, "history.txt not found\n");
-		exit(1);
-	} else {
-		char buffer[MAX_BUFFER_SIZE]; // temporary buffer to hold user inputs read in
-		fseek(history, 0, SEEK_SET); // reads line by line
-		while (fgets(buffer, MAX_BUFFER_SIZE, history)) { // prints line by line
-			printf("%s", buffer);
-		}
-	}
-	fclose(history); // closes the file
 	return 1;
 }

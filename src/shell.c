@@ -6,11 +6,15 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/29 15:31:19 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:24:13 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern char* PATH;
+extern char* builtin_commands[];
+extern int (*builtin_functions[])(char**);
 
 // kills the program
 void sigint_handler()
