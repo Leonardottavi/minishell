@@ -6,45 +6,43 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 18:36:17 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 19:52:06 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// prints the current working directory
-int builtin_pwd(char** args __attribute__((unused)))
+int	builtin_pwd(char** args __attribute__((unused)))
 {
 	char *cwd;
-	cwd = getcwd(NULL, 0); // Dynamically allocate buffer size
+
+	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)
 	{
 		printf("%s\n", cwd);
-		free(cwd); // Free the allocated memory
+		free(cwd);
 	}
 	else
 		perror("mini-shell");
 	return 1;
 }
 
-// exits out of the mini-shell
-int builtin_exit(char** args __attribute__((unused)))
+int	builtin_exit(char** args __attribute__((unused)))
 {
 	return 0;
 }
 
-// changes the current directory
-int builtin_cd(char** args)
+int	builtin_cd(char** args)
 {
-	if (NULL == args[1])	// prints an error message if the user doesn't input the new directory
+	if (NULL == args[1])
 		printf("mini-shell:\tplease provide the new directory\n");
-	else if (chdir(args[1]) < 0)	// changes directory if the new one exists, otherwise prints an error message
+	else if (chdir(args[1]) < 0)
 		perror("mini-shell");
 	return 1;
 }
 
-// prints the available built-in commands and a short description for each of them
-int builtin_help(char** args __attribute__((unused)))
+
+int	builtin_help(char** args __attribute__((unused)))
 {
 	printf("WELCOME ON LOTTAVI MINISHELL HELP COMMAND FAGOTTINO MIO\n");
 	printf("\t-pwd\tfor current directory\n");
