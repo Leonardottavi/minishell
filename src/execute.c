@@ -6,15 +6,11 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:23:57 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:36:55 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern char* PATH;
-extern char* builtin_commands[];
-extern int (*builtin_functions[])(char**);
 
 // executes terminal built-in commands in a separate process
 int execute_without_pipe(char** args) {

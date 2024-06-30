@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:27:48 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:36:50 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 #define MAX_BUFFER_SIZE 80 // buffer to hold user input
 #define BUILTIN_COMMANDS 7 // number of bult-in commands
 
-extern char* PATH;
+extern char PATH[1024];
 extern char* builtin_commands[];
-extern int (*builtin_functions[])(char**);
+extern int (*builtin_functions[BUILTIN_COMMANDS])(char**);
 
 int builtin_exit(char** args);
 int builtin_cd(char** args);

@@ -6,15 +6,15 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:29:25 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:36:45 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char* PATH;
+char PATH[1024]; // buffer to hold the home folder path
 char* builtin_commands[] = {"exit", "cd", "help", "pwd", "echo", "unset", "cat"}; // the built-in commands
-int (*builtin_functions[]) (char**) = // the built-in functions
+int (*builtin_functions[BUILTIN_COMMANDS])(char**) =
 {
 	&builtin_exit,
 	&builtin_cd,
