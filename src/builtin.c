@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 19:51:17 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 20:13:04 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*g_builtin_commands[] =
 	"pwd", "echo", "unset", "cat", "env"
 };
 
-int	(*builtin_functions[BUILTIN_COMMANDS])(char**) =
+int	(*g_builtin_functions[BUILTIN_COMMANDS])(char**) =
 {
 	&builtin_exit,
 	&builtin_cd,
@@ -31,28 +31,29 @@ int	(*builtin_functions[BUILTIN_COMMANDS])(char**) =
 	&builtin_env
 };
 
-int builtin_unset(char** args)
+int	builtin_unset(char **args)
 {
-	if (args[1] == NULL) {
-		printf("mini-shell: unset: a variable name is required\n");
-		return 1;
-	}
 	int	i;
 
+	if (args[1] == NULL)
+	{
+		printf("mini-shell: unset: a variable name is required\n");
+		return (1);
+	}
 	i = 1;
-	while (args[i] != NULL) {
-		if (ft_unsetenv(args[i]) != 0) {
+	while (args[i] != NULL)
+	{
+		if (ft_unsetenv(args[i]) != 0)
 			perror("mini-shell");
-		}
 		i++;
 	}
 	return (1);
 }
 
-int builtin_env(char** args __attribute__((unused)))
+int	builtin_env(char **args __attribute__((unused)))
 {
-	extern char **environ;
-	int	i;
+	extern char	**environ;
+	int			i;
 
 	i = 0;
 	while (environ[i] != NULL)
@@ -60,25 +61,26 @@ int builtin_env(char** args __attribute__((unused)))
 		printf("%s\n", environ[i]);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-int builtin_cat(char** args)
+int	builtin_cat(char **args)
 {
-	int	i;
+	int		i;
+	int		fd;
+	char	buffer[1024];
+	ssize_t	bytes_read;
 
 	i = 1;
 	while (args[i] != NULL)
 	{
-		int fd = open(args[i], O_RDONLY);
+		fd = open(args[i], O_RDONLY);
 		if (fd == -1)
 		{
 			perror("Error opening file");
 			i++;
-			continue;
+			continue ;
 		}
-		char buffer[1024];
-		ssize_t	bytes_read;
 		while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0)
 		{
 			buffer[bytes_read] = '\0';
