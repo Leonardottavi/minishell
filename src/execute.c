@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:36:55 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 17:36:15 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,68 +27,6 @@ int execute_without_pipe(char** args) {
 		exit(1);
 	} else {
 		wait(NULL); // waits for the child to finish execution
-	}
-
-	return 1;
-}
-
-// executes terminal built-in commands by feeding the output of the first command into the input of the second command
-int execute_with_pipe(char** args) {
-	int i = 0;
-	char* left_side[3]; // stores the first command together with a flag and NULL
-	char* right_side[3]; // stores the second command together with a flag and NULL
-	while (0 != strcmp(args[i], "|")) { // saves the tokens on the left side of the pipe character into a character array
-		left_side[i] = args[i];
-		i++;
-	}
-	left_side[i] = NULL; // adds NULL as the last token of the first command
-	i++; // skips the pipe character so it doesn't get stored
-	int j = 0;
-	while (args[i] != NULL) { // saves the tokens on the right side of the pipe character into a character array
-		right_side[j] = args[i];
-		i++;
-		j++;
-	}
-	right_side[j] = NULL; // adds NULL as the last token of the second command
-	int fd[2]; // stores the file descriptors
-	if (-1 == pipe(fd)) { // starts piping
-		printf("Piping failed for some reason!\n");
-		exit(EXIT_FAILURE);
-	}
-	pid_t child_process_id;
-	int child_status;
-	pid_t child_process_id2;
-	int child_status2;
-	child_process_id = fork();
-	if(-1 == child_process_id) {
-		printf("Fork failed for some reason!\n");
-		exit(EXIT_FAILURE);
-	} else if (0 == child_process_id) { // 1st child
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		if (-1 == execvp(left_side[0], left_side)) {
-			printf("Command not found--Did you mean something else?\n");
-		}
-		exit(1);
-	}
-	child_process_id2 = fork();
-	if (-1 == child_process_id2) {
-		printf("Fork failed for some reason!\n");
-		exit(EXIT_FAILURE);
-	} else if (0 == child_process_id2) { // 2nd child
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		if (-1 == execvp(right_side[0], right_side)) {
-			printf("Command not found--Did you mean something else?\n");
-		}
-		exit(1);
-	} else { // parent
-		close(fd[0]);
-		close(fd[1]);
-		waitpid(child_process_id, &child_status, 0); // waits execution of the 1st child
-		waitpid(child_process_id2, &child_status2, 0); // waits execution of the 2nd child
 	}
 
 	return 1;
