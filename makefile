@@ -6,7 +6,7 @@
 #    By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 12:33:15 by lottavi           #+#    #+#              #
-#    Updated: 2024/06/30 17:52:19 by lottavi          ###   ########.fr        #
+#    Updated: 2024/06/30 18:04:53 by lottavi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ clean:
 	rm -f $(LIB_DIR)/*.o
 
 fclean: clean
-	clean rm -f $(NAME)
+	rm $(NAME)
 
 re: fclean all
 

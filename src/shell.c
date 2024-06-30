@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:36:59 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 18:31:17 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ char* get_input(char* buffer)
 // processes user input by tokenizing each word
 char** get_args(char* input, char** args)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	char* token = strtok(input, " ");
 	while (NULL != token) { // tokenizes user input
 		args[i] = token;
