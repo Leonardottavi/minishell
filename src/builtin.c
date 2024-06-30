@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:31 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:54:45 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,47 +84,4 @@ int builtin_echo(char** args) {
     }
     printf("\n"); // add a newline at the end
     return 1;
-}
-
-// prints the current working directory
-int builtin_pwd(char** args __attribute__((unused)))
-{
-    char *cwd;
-    cwd = getcwd(NULL, 0); // Dynamically allocate buffer size
-    if (cwd != NULL) {
-        printf("%s\n", cwd);
-        free(cwd); // Free the allocated memory
-    } else {
-        perror("mini-shell");
-    }
-    return 1;
-}
-
-// exits out of the mini-shell
-int builtin_exit(char** args __attribute__((unused)))
-{
-	return 0;
-}
-
-// changes the current directory
-int builtin_cd(char** args) {
-	if (NULL == args[1]) { // prints an error message if the user doesn't input the new directory
-		fprintf(stderr, "mini-shell: please provide the new directory\n");
-	} else if (chdir(args[1]) < 0) { // changes directory if the new one exists, otherwise prints an error message
-		perror("mini-shell");
-	}
-
-	return 1;
-}
-
-// prints the available built-in commands and a short description for each of them
-int builtin_help(char** args __attribute__((unused)))
-{
-	printf("Welcome to Lottavi's mini-shell!\n");
-	printf("\tAvailable built-in commands\n:");
-	printf("\t-exit(terminates the shell\n");
-	printf("\t-cd(changes directory\n");
-	printf("\t-help(lists the available built-in commands\n");
-	printf("\t-history(lists all previous user inputs\n");
-	return 1;
 }
