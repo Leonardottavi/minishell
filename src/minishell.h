@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 20:23:29 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 20:33:02 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 extern char		g_path[1024];
 extern char		*g_builtin_commands[];
-extern	int		*(g_builtin_functions[BUILTIN_COMMANDS])(char**);
+extern	int		(*g_builtin_functions[BUILTIN_COMMANDS])(char**);
 
 int		builtin_exit(char **args);
 int		builtin_cd(char **args);
