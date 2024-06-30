@@ -6,14 +6,14 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:36:45 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:31 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char PATH[1024]; // buffer to hold the home folder path
-char* builtin_commands[] = {"exit", "cd", "help", "pwd", "echo", "unset", "cat"}; // the built-in commands
+char* builtin_commands[] = {"exit", "cd", "help", "pwd", "echo", "unset", "cat", "env"}; // the built-in commands
 int (*builtin_functions[BUILTIN_COMMANDS])(char**) =
 {
 	&builtin_exit,
@@ -21,7 +21,9 @@ int (*builtin_functions[BUILTIN_COMMANDS])(char**) =
 	&builtin_help,
 	&builtin_pwd,
 	&builtin_echo,
-	&builtin_unset
+	&builtin_unset,
+	&builtin_cat,
+	&builtin_env
 };
 
 int builtin_unset(char** args)
@@ -38,6 +40,17 @@ int builtin_unset(char** args)
         i++;
     }
     return 1;
+}
+
+// Implements the 'env' command by printing all environment variables
+int builtin_env(char** args __attribute__((unused))) {
+    extern char **environ;
+    int i = 0;
+    while (environ[i] != NULL) {
+        printf("%s\n", environ[i]);
+        i++;
+    }
+    return 0; // Successfully executed command
 }
 
 // mimics the 'cat' command by printing the contents of files passed as arguments

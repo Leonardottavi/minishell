@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 14:36:50 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:52:12 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <signal.h>
 
 #define MAX_BUFFER_SIZE 80 // buffer to hold user input
-#define BUILTIN_COMMANDS 7 // number of bult-in commands
+#define BUILTIN_COMMANDS 8 // number of bult-in commands
 
 extern char PATH[1024];
 extern char* builtin_commands[];
