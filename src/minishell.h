@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 20:33:02 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/06/30 20:43:05 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		builtin_unset(char **args);
 int		builtin_cat(char **args);
 
 // function shell
-void	sigint_handler(void);
 void	save_history(char *input);
 char	*get_input(char *buffer);
 char	**get_args(char *input, char **args);
