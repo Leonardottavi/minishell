@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:38:25 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 16:39:38 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 17:02:27 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_input(char *buffer)
 {
-	buffer = readline("mini-shell>");
+	buffer = readline("minishell>");
 	return (buffer);
 }
 
