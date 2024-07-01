@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:30:17 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:32:20 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ int	builtin_export(char **args)
 	{
 		i++;
 	}
-		if (putenv(args[i]) != 0)
-		{
-			perror("mini-shell: export");
-			return (1);
-		}
+	if (putenv(args[i]) != 0)
+	{
+		perror("mini-shell: export");
+		return (1);
+	}
 	return (1);
 }
