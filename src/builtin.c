@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 12:14:03 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:24:52 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@ char **get_builtin_commands()
 	return (builtin_commands);
 }
 
-int		(*g_builtin_functions[BUILTIN_COMMANDS])(char**) = {
-	&builtin_exit,
-	&builtin_cd,
-	&builtin_help,
-	&builtin_pwd,
-	&builtin_echo,
-	&builtin_unset,
-	&builtin_env,
-};
+int (*(*get_builtin_functions(void))[])(char **)
+{
+	static int (*builtin_functions[BUILTIN_COMMANDS])(char**) = {
+		&builtin_exit,
+		&builtin_cd,
+		&builtin_help,
+		&builtin_pwd,
+		&builtin_echo,
+		&builtin_unset,
+		&builtin_env,
+	};
+	return &builtin_functions;
+}
 
 int	builtin_unset(char **args)
 {

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 12:07:06 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:21:21 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int execute(char** args) {
 	{
 		if (0 == strcmp(args[0], get_builtin_commands()[i]))
 		{
-			loop_status = (*g_builtin_functions[i])(args);
+			loop_status = (*get_builtin_functions())[i](args);
 			return loop_status;
 		}
 		i++;
