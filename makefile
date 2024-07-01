@@ -6,7 +6,7 @@
 #    By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 12:33:15 by lottavi           #+#    #+#              #
-#    Updated: 2024/06/30 18:04:53 by lottavi          ###   ########.fr        #
+#    Updated: 2024/07/01 16:14:09 by lottavi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIB_DIR = lib
 NAME = minishell
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-LIBS = -L$(LIB_DIR) -lft
+LIBS = -L$(LIB_DIR) -lft -lreadline
 
 all: libft $(NAME)
 

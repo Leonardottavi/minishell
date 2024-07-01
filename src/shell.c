@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:39:34 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 16:08:32 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	save_history(char *input)
 
 char	*get_input(char *buffer)
 {
-	printf("mini-shell>");
-	fgets(buffer, MAX_BUFFER_SIZE, stdin);
-	return (buffer);
+	buffer = readline("mini-shell>");
+	return buffer;
 }
 
 char	**get_args(char *input, char **args)
