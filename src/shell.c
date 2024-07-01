@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 16:41:35 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 17:33:30 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ char	**get_args(char *input, char **args)
 	char	*token;
 
 	i = 0;
-	token = strtok(input, " ");
+	token = ft_strtok(input, " ");
 	while (NULL != token)
 	{
 		args[i] = token;
-		token = strtok(NULL, " ");
+		token = ft_strtok(NULL, " ");
 		i++;
 	}
 	args[i] = NULL;
 	j = 0;
 	while (NULL != args[j])
 	{
-		args[j] = strtok(args[j], "\n");
+		args[j] = ft_strtok(args[j], "\n");
 		j++;
 	}
 	return (args);
