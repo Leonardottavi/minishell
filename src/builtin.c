@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 12:24:52 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 14:31:54 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 char	g_path[1024];
 
-char **get_builtin_commands()
+char	**get_builtin_commands(void)
 {
-	static char *builtin_commands[] = {
+	static char	*builtin_commands[] = {
 		"exit", "cd", "help", "pwd", "echo", "unset", "env", NULL
 	};
+
 	return (builtin_commands);
 }
 
@@ -33,7 +34,8 @@ int (*(*get_builtin_functions(void))[])(char **)
 		&builtin_unset,
 		&builtin_env,
 	};
-	return &builtin_functions;
+return (&builtin_functions);
+
 }
 
 int	builtin_unset(char **args)
@@ -76,20 +78,19 @@ int	builtin_echo(char **args)
 
 	newline = 1;
 	i = 1;
-	if (args[1] && strcmp(args[1], "-n") == 0) {
-		newline = 0; // Do not print the newline
-		i = 2; // Start printing from the next argument
+	if (args[1] && ft_strcmp(args[1], "-n") == 0)
+	{
+		newline = 0;
+		i = 2;
 	}
-
-	while (args[i] != NULL) {
+	while (args[i] != NULL)
+	{
 		printf("%s", args[i]);
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
-
 	if (newline)
 		printf("\n");
-
 	return (1);
 }
