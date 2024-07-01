@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 18:27:59 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 18:48:56 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <readline/readline.h>
-# include "../lib/libft.h"
+# include "../libft/libft.h"
 
 # define MAX_BUFFER_SIZE 80 // buffer to hold user input
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
