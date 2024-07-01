@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 21:20:54 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:16:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	builtin_help(char **args __attribute__((unused)))
 	printf("\t-cd\tchanges directory\n");
 	printf("\t-echo\tprints the arguments\n");
 	printf("\t-unset\tunsets the environment variable\n");
-	printf("\t-cat\tprints the contents of the file\n");
 	printf("\t-env\tprints the environment variables\n");
 	return (1);
 }
