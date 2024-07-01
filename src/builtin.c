@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:25:54 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:42:23 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ int	builtin_env(char **args __attribute__((unused)))
 	i = 0;
 	while (environ[i] != NULL)
 	{
-		printf("%s\n", environ[i]);
+		if (ft_strncmp(environ[i], "_=", 2) != 0)
+			printf("%s\n", environ[i]);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	builtin_echo(char **args)
