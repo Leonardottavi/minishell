@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 18:25:15 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 21:34:23 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parse_pipe_args(char **args, char **left_side, char **right_side)
 	int	j;
 
 	i = 0;
-	while (0 != strcmp(args[i], "|"))
+	while (0 != ft_strcmp(args[i], "|"))
 	{
 		left_side[i] = args[i];
 		i++;
