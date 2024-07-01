@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:19:31 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:39:34 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,31 @@ void	sigint_handler()
 	exit(0);
 }
 
-void save_history(char* input)
+void	save_history(char *input)
 {
+	FILE	*history;
+
 	ft_strcat(ft_strcpy(g_path, getenv("HOME")), "/.history.txt");
-	FILE* history = fopen(g_path, "a");
+	history = fopen(g_path, "a");
 	fprintf(history, "%s", input);
 	fclose(history);
 }
 
-char* get_input(char* buffer)
+char	*get_input(char *buffer)
 {
 	printf("mini-shell>");
 	fgets(buffer, MAX_BUFFER_SIZE, stdin);
 	return (buffer);
 }
 
-char** get_args(char* input, char** args)
+char	**get_args(char *input, char **args)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*token;
 
 	i = 0;
-	char* token = strtok(input, " ");
+	token = strtok(input, " ");
 	while (NULL != token)
 	{
 		args[i] = token;
@@ -46,7 +50,7 @@ char** get_args(char* input, char** args)
 		i++;
 	}
 	args[i] = NULL;
-	int j = 0;
+	j = 0;
 	while (NULL != args[j])
 	{
 		args[j] = strtok(args[j], "\n");
@@ -55,31 +59,33 @@ char** get_args(char* input, char** args)
 	return (args);
 }
 
-int main()
+int	main()
 {
+	char	*input;
+	char	**args;
+	int		loop_status;
+	char	**args_buffer;
+
 	signal(SIGINT, sigint_handler);
-	char* input = (char*)malloc(sizeof(char) * MAX_BUFFER_SIZE);
+	input = (char *)malloc(sizeof(char) * MAX_BUFFER_SIZE);
 	if (NULL == input)
 	{
 		perror("malloc");
-		return -1;
+		return (-1);
 	}
-	char** args_buffer = (char**)malloc(sizeof(char*) * MAX_BUFFER_SIZE);
+	args_buffer = (char **)malloc(sizeof(char *) * MAX_BUFFER_SIZE);
 	if (NULL == args_buffer)
 	{
 		perror("malloc");
-		return -1;
+		return (-1);
 	}
-	char** args;
-	int loop_status;
-
 	loop_status = 1;
-	while(loop_status)
+	while (loop_status)
 	{
 		input = get_input(input);
 		if (32 == input[0] || 9 == input[0] || 0 == strcmp(input, "\n") || NULL == input)
-			continue;
-		 else
+			continue ;
+		else
 		{
 			save_history(input);
 			args = get_args(input, args_buffer);
