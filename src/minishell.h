@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 12:25:10 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:26:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ int				(*(*get_builtin_functions(void))[])(char **);
 int		builtin_exit(char **args);
 int		builtin_cd(char **args);
 int		builtin_help(char **args);
-int		builtin_history(char **args);
 int		builtin_env(char **args);
 int		builtin_pwd(char **args);
 int		builtin_echo(char **args);
 int		builtin_unset(char **args);
-int		builtin_cat(char **args);
+int		builtin_export(char **args);
 
 // function shell
 void	save_history(char *input);

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:16:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:30:17 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,27 @@ int	builtin_help(char **args __attribute__((unused)))
 	printf("\t-echo\tprints the arguments\n");
 	printf("\t-unset\tunsets the environment variable\n");
 	printf("\t-env\tprints the environment variables\n");
+	return (1);
+}
+
+int	builtin_export(char **args)
+{
+	int	i;
+
+	if (args[1] == NULL)
+	{
+		printf("mini-shell: export: not enough arguments\n");
+		return (1);
+	}
+	i = 1;
+	while (args[i] != NULL)
+	{
+		i++;
+	}
+		if (putenv(args[i]) != 0)
+		{
+			perror("mini-shell: export");
+			return (1);
+		}
 	return (1);
 }

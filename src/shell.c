@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 20:43:10 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:19:31 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sigint_handler()
 
 void save_history(char* input)
 {
-	strcat(strcpy(g_path, getenv("HOME")), "/.history.txt");
+	ft_strcat(ft_strcpy(g_path, getenv("HOME")), "/.history.txt");
 	FILE* history = fopen(g_path, "a");
 	fprintf(history, "%s", input);
 	fclose(history);
