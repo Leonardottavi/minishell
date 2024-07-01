@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 18:23:09 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 18:25:15 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ void	wait_for_children(pid_t child1, pid_t child2)
 	waitpid(child1, &child_status, 0);
 	waitpid(child2, &child_status, 0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 18:24:02 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 18:27:59 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,34 @@
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
 
 extern char		g_path[1024];
-char			**get_builtin_commands();
+char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
 
-int		builtin_exit(char **args);
-int		builtin_cd(char **args);
-int		builtin_help(char **args);
-int		builtin_env(char **args);
-int		builtin_pwd(char **args);
-int		builtin_echo(char **args);
-int		builtin_unset(char **args);
-int		builtin_export(char **args);
+int				builtin_exit(char **args);
+int				builtin_cd(char **args);
+int				builtin_help(char **args);
+int				builtin_env(char **args);
+int				builtin_pwd(char **args);
+int				builtin_echo(char **args);
+int				builtin_unset(char **args);
+int				builtin_export(char **args);
 
 // function shell
-void	save_history(char *input);
-char	*get_input(char *buffer);
-char	**get_args(char *input, char **args);
+void			save_history(char *input);
+char			*get_input(char *buffer);
+char			**get_args(char *input, char **args);
 
 //function executers
-int		execute_without_pipe(char **args);
-int		execute_with_pipe(char **args);
-int		execute(char **args);
+int				execute_without_pipe(char **args);
+int				execute_with_pipe(char **args);
+int				execute(char **args);
 
 //pipe functions
-void	parse_pipe_args(char **args, char **left_side, char **right_side);
-void	failed_pipe(int fd[2]);
-void	execute_left_side(int fd[2], char **left_side);
-void	execute_right_side(int fd[2], char **right_side);
-void	wait_for_children(pid_t child1, pid_t child2);
+void			parse_pipe_args(char **args, char **left_side,
+					char **right_side);
+void			failed_pipe(int fd[2]);
+void			execute_left_side(int fd[2], char **left_side);
+void			execute_right_side(int fd[2], char **right_side);
+void			wait_for_children(pid_t child1, pid_t child2);
 
 #endif
