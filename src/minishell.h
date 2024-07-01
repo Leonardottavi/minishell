@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 20:43:05 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:14:14 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
 
 extern char		g_path[1024];
-extern char		*g_builtin_commands[];
+char 			**get_builtin_commands();
 extern	int		(*g_builtin_functions[BUILTIN_COMMANDS])(char**);
 
 int		builtin_exit(char **args);

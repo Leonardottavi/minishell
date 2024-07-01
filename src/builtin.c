@@ -6,16 +6,21 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/06/30 21:23:41 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 12:14:03 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	g_path[1024];
-char	*g_builtin_commands[] = {"exit", "cd", "help",
-	"pwd", "echo", "unset", "env"
-};
+
+char **get_builtin_commands()
+{
+	static char *builtin_commands[] = {
+		"exit", "cd", "help", "pwd", "echo", "unset", "env", NULL
+	};
+	return (builtin_commands);
+}
 
 int		(*g_builtin_functions[BUILTIN_COMMANDS])(char**) = {
 	&builtin_exit,
