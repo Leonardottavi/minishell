@@ -2,3 +2,4 @@ build
 *.txt
 minishell
 .vscode
+obj
