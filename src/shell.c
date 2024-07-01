@@ -6,32 +6,16 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 16:08:32 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 16:41:35 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler()
+void	sigint_handler(int signum __attribute__((unused)))
 {
 	printf("minishell: killed\n");
 	exit(0);
-}
-
-void	save_history(char *input)
-{
-	FILE	*history;
-
-	ft_strcat(ft_strcpy(g_path, getenv("HOME")), "/.history.txt");
-	history = fopen(g_path, "a");
-	fprintf(history, "%s", input);
-	fclose(history);
-}
-
-char	*get_input(char *buffer)
-{
-	buffer = readline("mini-shell>");
-	return buffer;
 }
 
 char	**get_args(char *input, char **args)
@@ -58,31 +42,35 @@ char	**get_args(char *input, char **args)
 	return (args);
 }
 
-int	main()
+int	init_resources(char **input, char ***args_buffer)
 {
-	char	*input;
+	*input = (char *)malloc(sizeof(char) * MAX_BUFFER_SIZE);
+	if (NULL == *input)
+	{
+		perror("malloc");
+		return (-1);
+	}
+	*args_buffer = (char **)malloc(sizeof(char *) * MAX_BUFFER_SIZE);
+	if (NULL == *args_buffer)
+	{
+		perror("malloc");
+		free(*input);
+		return (-1);
+	}
+	return (0);
+}
+
+int	main_loop(char *input, char **args_buffer)
+{
 	char	**args;
 	int		loop_status;
-	char	**args_buffer;
 
-	signal(SIGINT, sigint_handler);
-	input = (char *)malloc(sizeof(char) * MAX_BUFFER_SIZE);
-	if (NULL == input)
-	{
-		perror("malloc");
-		return (-1);
-	}
-	args_buffer = (char **)malloc(sizeof(char *) * MAX_BUFFER_SIZE);
-	if (NULL == args_buffer)
-	{
-		perror("malloc");
-		return (-1);
-	}
 	loop_status = 1;
 	while (loop_status)
 	{
 		input = get_input(input);
-		if (32 == input[0] || 9 == input[0] || 0 == strcmp(input, "\n") || NULL == input)
+		if (32 == input[0] || 9 == input[0]
+			|| 0 == ft_strcmp(input, "\n") || NULL == input)
 			continue ;
 		else
 		{
@@ -91,7 +79,22 @@ int	main()
 			loop_status = execute(args);
 		}
 	}
-	free(input);
-	free(args);
 	return (0);
+}
+
+int	main(void)
+{
+	char	*input;
+	char	**args_buffer;
+	int		result;
+
+	signal(SIGINT, sigint_handler);
+	if (init_resources(&input, &args_buffer) != 0)
+	{
+		return (-1);
+	}
+	result = main_loop(input, args_buffer);
+	free(input);
+	free(args_buffer);
+	return (result);
 }
