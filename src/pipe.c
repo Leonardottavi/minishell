@@ -6,25 +6,26 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 17:59:18 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 18:23:09 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_with_pipe(char** args)
+void	parse_pipe_args(char **args, char **left_side, char **right_side)
 {
-	int i = 0;
-	char* left_side[3];
-	char* right_side[3];
+	int	i;
+	int	j;
+
+	i = 0;
 	while (0 != strcmp(args[i], "|"))
 	{
 		left_side[i] = args[i];
 		i++;
 	}
+	j = 0;
 	left_side[i] = NULL;
 	i++;
-	int j = 0;
 	while (args[i] != NULL)
 	{
 		right_side[j] = args[i];
@@ -32,22 +33,28 @@ int execute_with_pipe(char** args)
 		j++;
 	}
 	right_side[j] = NULL;
-	int fd[2];
+}
+
+void	failed_pipe(int fd[2])
+{
 	if (-1 == pipe(fd))
 	{
 		printf("Piping failed for some reason!\n");
 		exit(EXIT_FAILURE);
 	}
-	pid_t child_process_id;
-	int child_status;
-	pid_t child_process_id2;
-	int child_status2;
+}
+
+void	execute_left_side(int fd[2], char **left_side)
+{
+	pid_t	child_process_id;
+
 	child_process_id = fork();
-	if(-1 == child_process_id)
+	if (-1 == child_process_id)
 	{
 		printf("Fork failed for some reason!\n");
 		exit(EXIT_FAILURE);
-	} else if (0 == child_process_id)
+	}
+	else if (0 == child_process_id)
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
@@ -56,12 +63,19 @@ int execute_with_pipe(char** args)
 			printf("Command not found--Did you mean something else?\n");
 		exit(1);
 	}
-	child_process_id2 = fork();
-	if (-1 == child_process_id2)
+}
+
+void	execute_right_side(int fd[2], char **right_side)
+{
+	pid_t	child_process_id;
+
+	child_process_id = fork();
+	if (-1 == child_process_id)
 	{
 		printf("Fork failed for some reason!\n");
 		exit(EXIT_FAILURE);
-	} else if (0 == child_process_id2)
+	}
+	else if (0 == child_process_id)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -70,12 +84,13 @@ int execute_with_pipe(char** args)
 			printf("Command not found--Did you mean something else?\n");
 		exit(1);
 	}
-	else
-	{
-		close(fd[0]);
-		close(fd[1]);
-		waitpid(child_process_id, &child_status, 0); // waits execution of the 1st child
-		waitpid(child_process_id2, &child_status2, 0); // waits execution of the 2nd child
-	}
-	return (1);
 }
+
+void	wait_for_children(pid_t child1, pid_t child2)
+{
+	int	child_status;
+
+	waitpid(child1, &child_status, 0);
+	waitpid(child2, &child_status, 0);
+}
+

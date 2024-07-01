@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 17:00:57 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/01 18:24:02 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,12 @@ char	**get_args(char *input, char **args);
 int		execute_without_pipe(char **args);
 int		execute_with_pipe(char **args);
 int		execute(char **args);
+
+//pipe functions
+void	parse_pipe_args(char **args, char **left_side, char **right_side);
+void	failed_pipe(int fd[2]);
+void	execute_left_side(int fd[2], char **left_side);
+void	execute_right_side(int fd[2], char **right_side);
+void	wait_for_children(pid_t child1, pid_t child2);
 
 #endif
