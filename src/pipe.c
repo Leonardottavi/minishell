@@ -1,0 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
+/*   Updated: 2024/07/01 17:59:18 by lottavi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int execute_with_pipe(char** args)
+{
+	int i = 0;
+	char* left_side[3];
+	char* right_side[3];
+	while (0 != strcmp(args[i], "|"))
+	{
+		left_side[i] = args[i];
+		i++;
+	}
+	left_side[i] = NULL;
+	i++;
+	int j = 0;
+	while (args[i] != NULL)
+	{
+		right_side[j] = args[i];
+		i++;
+		j++;
+	}
+	right_side[j] = NULL;
+	int fd[2];
+	if (-1 == pipe(fd))
+	{
+		printf("Piping failed for some reason!\n");
+		exit(EXIT_FAILURE);
+	}
+	pid_t child_process_id;
+	int child_status;
+	pid_t child_process_id2;
+	int child_status2;
+	child_process_id = fork();
+	if(-1 == child_process_id)
+	{
+		printf("Fork failed for some reason!\n");
+		exit(EXIT_FAILURE);
+	} else if (0 == child_process_id)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		if (-1 == execvp(left_side[0], left_side))
+			printf("Command not found--Did you mean something else?\n");
+		exit(1);
+	}
+	child_process_id2 = fork();
+	if (-1 == child_process_id2)
+	{
+		printf("Fork failed for some reason!\n");
+		exit(EXIT_FAILURE);
+	} else if (0 == child_process_id2)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		if (-1 == execvp(right_side[0], right_side))
+			printf("Command not found--Did you mean something else?\n");
+		exit(1);
+	}
+	else
+	{
+		close(fd[0]);
+		close(fd[1]);
+		waitpid(child_process_id, &child_status, 0); // waits execution of the 1st child
+		waitpid(child_process_id2, &child_status2, 0); // waits execution of the 2nd child
+	}
+	return (1);
+}
