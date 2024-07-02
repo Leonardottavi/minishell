@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 17:33:30 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/02 13:54:55 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	main_loop(char *input, char **args_buffer)
 	loop_status = 1;
 	while (loop_status)
 	{
+		char *old_input = input;
 		input = get_input(input);
+		free(old_input);
 		if (32 == input[0] || 9 == input[0]
 			|| 0 == ft_strcmp(input, "\n") || NULL == input)
 			continue ;
@@ -87,6 +89,7 @@ int	main(void)
 	char	*input;
 	char	**args_buffer;
 	int		result;
+	int		i;
 
 	signal(SIGINT, sigint_handler);
 	if (init_resources(&input, &args_buffer) != 0)
@@ -95,6 +98,12 @@ int	main(void)
 	}
 	result = main_loop(input, args_buffer);
 	free(input);
+	i = 0;
+	while (args_buffer[i] != NULL)
+	{
+		free(args_buffer[i]);
+		i++;
+	}
 	free(args_buffer);
 	return (result);
 }
