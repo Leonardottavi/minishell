@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 18:23:15 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/02 13:56:35 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute(char **args)
 	}
 	while (NULL != args[j])
 	{
-		if (0 == strcmp(args[j], "|"))
+		if (0 == ft_strcmp(args[j], "|"))
 		{
 			return (execute_with_pipe(args));
 		}
