@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/02 14:19:28 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:41:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	main(void)
 		return (-1);
 	}
 	result = main_loop(input, args_buffer);
-	free(input);
 	i = 0;
 	while (args_buffer[i] != NULL)
 	{
