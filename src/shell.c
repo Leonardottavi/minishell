@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/03 11:49:23 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:54:22 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,14 @@ int	main_loop(char *input, char **args_buffer)
 		old_input = input;
 		input = get_input(input);
 		free(old_input);
-		if ( NULL == input || 32 == input[0] || 9 == input[0] || input[0] == 0
-			|| 0 == ft_strcmp(input, "\n"))
+		if (NULL == input || 32 == input[0] || 9 == input[0]
+			|| input[0] == 0 || 0 == ft_strcmp(input, "\n"))
 			continue ;
 		else
 		{
 			save_history(input);
 			args = get_args(input, args_buffer);
 			loop_status = execute(args);
-
 		}
 	}
 	return (0);
