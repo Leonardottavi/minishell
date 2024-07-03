@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:42:23 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/03 12:21:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,18 @@ int	builtin_env(char **args __attribute__((unused)))
 	return (1);
 }
 
+void	print_arg(char *arg)
+{
+	int	arg_len;
+
+	arg_len = strlen(arg);
+	if ((arg[0] == '"' && arg[arg_len - 1] == '"')
+		|| (arg[0] == '\'' && arg[arg_len - 1] == '\''))
+		printf("%.*s", arg_len - 2, arg + 1);
+	else
+		printf("%s", arg);
+}
+
 int	builtin_echo(char **args)
 {
 	int	i;
@@ -87,7 +99,7 @@ int	builtin_echo(char **args)
 	}
 	while (args[i] != NULL)
 	{
-		printf("%s", args[i]);
+		print_arg(args[i]);
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
