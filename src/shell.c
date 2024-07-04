@@ -6,22 +6,18 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/04 17:17:31 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/04 17:50:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler(int signum)
+void	sigint_handler(int signum __attribute__((unused)))
 {
-	if(signum == SIGINT)
+	if (signal(SIGINT, sigint_handler))
 	{
-		readline("mini-shell>");
-	}
-	if(signum == SIGQUIT)
-	{
-		printf("Quit\n");
-		exit(0);
+	printf("\n");
+	printf("minishell>");
 	}
 }
 
