@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 18:48:56 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/04 18:18:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@
 
 # define MAX_BUFFER_SIZE 80 // buffer to hold user input
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
+# define SIGNALS 3 // number of signals
 
 extern char		g_path[1024];
 char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
+void 			(*(*install_signal_handlers(void))[])(int);
+char			**get_signal(void);
+
 
 int				builtin_exit(char **args);
 int				builtin_cd(char **args);
@@ -57,5 +61,10 @@ void			failed_pipe(int fd[2]);
 void			execute_left_side(int fd[2], char **left_side);
 void			execute_right_side(int fd[2], char **right_side);
 void			wait_for_children(pid_t child1, pid_t child2);
+
+//signals
+void			sigint_handler(int signum __attribute__((unused)));
+void			sigquit_handler(int signum __attribute__((unused)));
+void			sigterm_handler(int signum __attribute__((unused)));
 
 #endif
