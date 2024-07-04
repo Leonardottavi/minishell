@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 15:32:20 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/04 17:11:53 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ int	builtin_pwd(char **args __attribute__((unused)))
 	return (1);
 }
 
-int	builtin_exit(char **args __attribute__((unused)))
+int	builtin_exit(char **args)
 {
+	if (args[1] != NULL)
+	{
+		printf("stai cercando di uscire o di ballare la samba?\n");
+		return (1);
+	}
 	return (0);
 }
 

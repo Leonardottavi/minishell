@@ -6,16 +6,23 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/03 11:54:22 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/04 17:17:31 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler(int signum __attribute__((unused)))
+void	sigint_handler(int signum)
 {
-	printf("minishell: killed\n");
-	exit(0);
+	if(signum == SIGINT)
+	{
+		readline("mini-shell>");
+	}
+	if(signum == SIGQUIT)
+	{
+		printf("Quit\n");
+		exit(0);
+	}
 }
 
 char	**get_args(char *input, char **args)
@@ -77,7 +84,7 @@ int	main_loop(char *input, char **args_buffer)
 			continue ;
 		else
 		{
-			save_history(input);
+			//save_history(input);
 			args = get_args(input, args_buffer);
 			loop_status = execute(args);
 		}
