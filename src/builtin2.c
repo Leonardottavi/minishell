@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 10:07:10 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:37:49 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,22 @@ int	builtin_exit(char **args)
 int	builtin_cd(char **args)
 {
 	if (NULL == args[1])
+	{
 		printf("mini-shell:\tplease provide the new directory\n");
-	else if (chdir(args[1]) < 0)
-		perror("mini-shell");
+	}
+	else
+	{
+		char *path = args[1];
+		int path_len = ft_strlen(path);
+		if ((path[0] == '"' && path[path_len - 1] == '"')
+			|| (path[0] == '\'' && path[path_len - 1] == '\''))
+		{
+			path[path_len - 1] = '\0';
+			path++;
+		}
+		if (chdir(path) < 0)
+			perror("mini-shell");
+	}
 	return (1);
 }
 
