@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 15:37:49 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:58:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	builtin_exit(char **args)
 int	builtin_cd(char **args)
 {
 	if (NULL == args[1])
-	{
 		printf("mini-shell:\tplease provide the new directory\n");
-	}
 	else
 	{
 		char *path = args[1];

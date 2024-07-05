@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 13:53:33 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 16:14:01 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/libft.h"
 
 # define MAX_BUFFER_SIZE 80 // buffer to hold user input

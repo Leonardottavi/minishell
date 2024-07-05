@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/03 12:21:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 16:07:46 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	g_path[1024];
 char	**get_builtin_commands(void)
 {
 	static char	*builtin_commands[] = {
-		"exit", "cd", "help", "pwd", "echo", "unset", "env", "export"
+		"exit", "cd", "help", "pwd",
+		"echo", "unset", "env", "export",
 	};
 
 	return (builtin_commands);
@@ -77,7 +78,7 @@ void	print_arg(char *arg)
 {
 	int	arg_len;
 
-	arg_len = strlen(arg);
+	arg_len = ft_strlen(arg);
 	if ((arg[0] == '"' && arg[arg_len - 1] == '"')
 		|| (arg[0] == '\'' && arg[arg_len - 1] == '\''))
 		printf("%.*s", arg_len - 2, arg + 1);
