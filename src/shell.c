@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/04 18:09:28 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 10:45:30 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ int	main(void)
 	int		result;
 	int		i;
 
-	signal(SIGINT, install_signal_handlers);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
+	signal(SIGTERM, sigterm_handler);
 	if (init_resources(&input, &args_buffer) != 0)
-	{
 		return (-1);
-	}
 	result = main_loop(input, args_buffer);
 	i = 0;
 	while (args_buffer[i] != NULL)

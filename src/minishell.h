@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/04 18:18:37 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 10:42:49 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@
 extern char		g_path[1024];
 char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
-void 			(*(*install_signal_handlers(void))[])(int);
-char			**get_signal(void);
-
 
 int				builtin_exit(char **args);
 int				builtin_cd(char **args);
@@ -48,6 +45,7 @@ int				builtin_export(char **args);
 void			save_history(char *input);
 char			*get_input(char *buffer);
 char			**get_args(char *input, char **args);
+int				main_loop(char *input, char **args_buffer);
 
 //function executers
 int				execute_without_pipe(char **args);
