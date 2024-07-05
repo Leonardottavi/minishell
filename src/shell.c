@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 10:45:30 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:40:29 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ char	**get_args(char *input, char **args)
 		j++;
 	}
 	return (args);
+}
+
+char	*get_input(char *buffer)
+{
+	buffer = readline("minishell>");
+	if(NULL == buffer)
+	{
+		printf("exit\n");
+		exit(0);
+	}
+	return (buffer);
 }
 
 int	init_resources(char **input, char ***args_buffer)
@@ -88,7 +99,6 @@ int	main(void)
 
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-	signal(SIGTERM, sigterm_handler);
 	if (init_resources(&input, &args_buffer) != 0)
 		return (-1);
 	result = main_loop(input, args_buffer);
