@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 14:23:48 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 17:27:19 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,3 @@ int	execute(char **args)
 	return (execute_without_pipe(args));
 }
 
-int	execute_with_pipe(char **args)
-{
-	char	*left_side[3];
-	char	*right_side[3];
-	int		fd[2];
-	pid_t	child1;
-	pid_t	child2;
-
-	parse_pipe_args(args, left_side, right_side);
-	failed_pipe(fd);
-	execute_left_side(fd, left_side);
-	child1 = fork();
-	execute_right_side(fd, right_side);
-	child2 = fork();
-	close(fd[0]);
-	close(fd[1]);
-	process_checker(child1, child2);
-	return (1);
-}

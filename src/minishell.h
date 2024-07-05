@@ -6,13 +6,14 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 16:14:01 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 17:48:55 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -42,24 +43,18 @@ int				builtin_echo(char **args);
 int				builtin_unset(char **args);
 int				builtin_export(char **args);
 
+
 // function shell
-void			save_history(char *input);
 char			*get_input(char *buffer);
 char			**get_args(char *input, char **args);
 int				main_loop(char *input, char **args_buffer);
 
 //function executers
 int				execute_without_pipe(char **args);
-int				execute_with_pipe(char **args);
 int				execute(char **args);
 
 //pipe functions
-void			parse_pipe_args(char **args, char **left_side,
-					char **right_side);
-void			failed_pipe(int fd[2]);
-void			execute_left_side(int fd[2], char **left_side);
-void			execute_right_side(int fd[2], char **right_side);
-void			process_checker(pid_t child1, pid_t child2);
+int				execute_with_pipe(char **args);
 
 //signals
 void			sigint_handler(int signum __attribute__((unused)));
