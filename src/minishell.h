@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 10:42:49 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 13:53:33 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ void			parse_pipe_args(char **args, char **left_side,
 void			failed_pipe(int fd[2]);
 void			execute_left_side(int fd[2], char **left_side);
 void			execute_right_side(int fd[2], char **right_side);
-void			wait_for_children(pid_t child1, pid_t child2);
+void			process_checker(pid_t child1, pid_t child2);
 
 //signals
 void			sigint_handler(int signum __attribute__((unused)));
 void			sigquit_handler(int signum __attribute__((unused)));
-void			sigterm_handler(int signum __attribute__((unused)));
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/02 13:56:35 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 13:57:48 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 int	execute_without_pipe(char **args)
 {
-	pid_t	child_process_id;
+	pid_t	process_id;
 
-	child_process_id = fork();
-	if (-1 == child_process_id)
+	process_id = fork();
+	if (-1 == process_id)
 	{
 		printf("Failed!\n");
 		exit(EXIT_FAILURE);
 	}
-	if (0 == child_process_id)
+	if (0 == process_id)
 	{
 		if (-1 == execvp(args[0], args))
 			printf("Command not found--are you using some kind of weed?\n");
-		exit(1);
 	}
 	else
 		wait(NULL);
@@ -85,6 +84,6 @@ int	execute_with_pipe(char **args)
 	child2 = fork();
 	close(fd[0]);
 	close(fd[1]);
-	wait_for_children(child1, child2);
+	process_checker(child1, child2);
 	return (1);
 }

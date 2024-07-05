@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 21:34:23 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 13:53:33 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	failed_pipe(int fd[2])
 
 void	execute_left_side(int fd[2], char **left_side)
 {
-	pid_t	child_process_id;
+	pid_t	process_id;
 
-	child_process_id = fork();
-	if (-1 == child_process_id)
+	process_id = fork();
+	if (-1 == process_id)
 	{
 		printf("Fork failed for some reason!\n");
 		exit(EXIT_FAILURE);
 	}
-	else if (0 == child_process_id)
+	else if (0 == process_id)
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
@@ -67,15 +67,15 @@ void	execute_left_side(int fd[2], char **left_side)
 
 void	execute_right_side(int fd[2], char **right_side)
 {
-	pid_t	child_process_id;
+	pid_t	process_id;
 
-	child_process_id = fork();
-	if (-1 == child_process_id)
+	process_id = fork();
+	if (-1 == process_id)
 	{
 		printf("Fork failed for some reason!\n");
 		exit(EXIT_FAILURE);
 	}
-	else if (0 == child_process_id)
+	else if (0 == process_id)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
@@ -86,10 +86,10 @@ void	execute_right_side(int fd[2], char **right_side)
 	}
 }
 
-void	wait_for_children(pid_t child1, pid_t child2)
+void	process_checker(pid_t child1, pid_t child2)
 {
-	int	child_status;
+	int	process_status;
 
-	waitpid(child1, &child_status, 0);
-	waitpid(child2, &child_status, 0);
+	waitpid(child1, &process_status, 0);
+	waitpid(child2, &process_status, 0);
 }
