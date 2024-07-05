@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 11:40:29 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:41:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*get_input(char *buffer)
 	if(NULL == buffer)
 	{
 		printf("exit\n");
+		free(buffer);
 		exit(0);
 	}
 	return (buffer);
