@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:56:15 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/01 17:35:01 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 18:02:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int		ft_strcmp(char *s1, char *s2);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strtok(char *str, const char *delim);
+char	*ft_getenv(char **envp, const char *name);
 
 #endif
