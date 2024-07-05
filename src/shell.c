@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 12:27:05 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 14:19:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	main_loop(char *input, char **args_buffer)
 			continue ;
 		else
 		{
-			//save_history(input);
 			args = get_args(input, args_buffer);
 			loop_status = execute(args);
 		}
@@ -99,7 +98,7 @@ int	main(void)
 	int		i;
 
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
 	if (init_resources(&input, &args_buffer) != 0)
 		return (-1);
 	result = main_loop(input, args_buffer);

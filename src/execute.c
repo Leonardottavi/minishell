@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 13:57:48 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 14:23:48 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	execute_without_pipe(char **args)
 	}
 	if (0 == process_id)
 	{
+		signal(SIGQUIT, sigquit_handler);
 		if (-1 == execvp(args[0], args))
 			printf("Command not found--are you using some kind of weed?\n");
 	}
