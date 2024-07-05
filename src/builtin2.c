@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/04 17:11:53 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/05 10:07:10 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	builtin_exit(char **args)
 		printf("stai cercando di uscire o di ballare la samba?\n");
 		return (1);
 	}
+	else
+		exit(0);
 	return (0);
 }
 
