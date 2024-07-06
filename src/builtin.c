@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 16:07:46 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:06:38 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,40 +38,6 @@ int (*(*get_builtin_functions(void))[])(char **)
 	};
 return (&builtin_functions);
 
-}
-
-int	builtin_unset(char **args)
-{
-	int	i;
-
-	if (args[1] == NULL)
-	{
-		printf("mini-shell: unset: a variable name is required\n");
-		return (1);
-	}
-	i = 1;
-	while (args[i] != NULL)
-	{
-		if (ft_unsetenv(args[i]) != 0)
-			perror("mini-shell");
-		i++;
-	}
-	return (1);
-}
-
-int	builtin_env(char **args __attribute__((unused)))
-{
-	extern char	**environ;
-	int			i;
-
-	i = 0;
-	while (environ[i] != NULL)
-	{
-		if (ft_strncmp(environ[i], "_=", 2) != 0)
-			printf("%s\n", environ[i]);
-		i++;
-	}
-	return (1);
 }
 
 void	print_arg(char *arg)
