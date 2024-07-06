@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 10:54:23 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:08:29 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
 # define SIGNALS 3 // number of signals
 
+extern char		**environ;
 extern char		g_path[1024];
 char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
