@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:40:39 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:43:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,7 @@ int execute_without_pipe(char **args)
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			return (1);
 	}
-
-	/* Reset SIGINT handler in parent process */
-	signal(SIGINT, SIG_DFL);
-
+	signal(SIGINT, sigint_handler);
 	return (1);
 }
 

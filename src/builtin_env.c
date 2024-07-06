@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:09:01 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 18:21:23 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,20 @@ int	builtin_unset(char **args)
 	return (1);
 }
 
-int	builtin_env(char **args __attribute__((unused)))
+int builtin_env(char **args __attribute__((unused)))
 {
-	extern char	**environ;
-	int			i;
-
-	i = 0;
-	while (environ[i] != NULL)
+	int i = 0;
+	char **environ_copy = ft_copy_environ(environ);
+	if (environ_copy == NULL)
 	{
-		if (ft_strncmp(environ[i], "_=", 2) != 0)
-			printf("%s\n", environ[i]);
+		printf("Environment not initialized.\n");
+		return (1);
+	}
+
+	while (environ_copy[i] != NULL)
+	{
+		if (ft_strncmp(environ_copy[i], "_=", 2) != 0)
+			printf("%s\n", environ_copy[i]);
 		i++;
 	}
 	return (1);
