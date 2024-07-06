@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:45:24 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 10:52:17 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 11:43:17 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char *get_cmd_path(char *cmd)
 	while (dir != NULL)
 	{
 		char *cmd_path = malloc(ft_strlen(dir) + ft_strlen(cmd) + 2);
-		strcpy(cmd_path, dir);
-		strcat(cmd_path, "/");
-		strcat(cmd_path, cmd);
+		ft_strcpy(cmd_path, dir);
+		ft_strcat(cmd_path, "/");
+		ft_strcat(cmd_path, cmd);
 
 		if (access(cmd_path, X_OK) == 0)
 		{
@@ -32,7 +32,7 @@ char *get_cmd_path(char *cmd)
 		}
 
 		free(cmd_path);
-		dir = strtok(NULL, ":");
+		dir = ft_strtok(NULL, ":");
 	}
 
 	free(path_copy);

@@ -6,13 +6,13 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 11:31:09 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 12:02:16 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void spawn_proc(int in, int out, char **cmd)
+pid_t spawn_proc(int in, int out, char **cmd)
 {
 	pid_t pid;
 
@@ -40,14 +40,16 @@ void spawn_proc(int in, int out, char **cmd)
 		}
 		exit(1);
 	}
+	return(pid);
 }
 
 int	execute_with_pipe(char **args)
 {
-	int i = 0;
-	int in = 0;
-	int fd[2];
-	char **cmd = args;
+	int		i = 0;
+	int		in = 0;
+	int		fd[2];
+	char	**cmd = args;
+	pid_t	pid;
 
 	while (args[i])
 	{
@@ -55,7 +57,7 @@ int	execute_with_pipe(char **args)
 		{
 			args[i] = NULL;
 			pipe(fd);
-			spawn_proc(in, fd[1], cmd);
+			pid = spawn_proc(in, fd[1], cmd);
 			close(fd[1]);
 			in = fd[0];
 			cmd = args + i + 1;
@@ -67,12 +69,20 @@ int	execute_with_pipe(char **args)
 	char *cmd_path = get_cmd_path(cmd[0]);
 	if (cmd_path != NULL)
 	{
-		execv(cmd_path, cmd);
-		free(cmd_path);
+		pid = fork();
+		if (pid == 0)
+		{
+			execv(cmd_path, cmd);
+			free(cmd_path);
+			exit(1);
+		}
+		else
+		{
+			int status;
+			waitpid(pid, &status, 0);  /* Wait for the child process to finish */
+		}
 	}
 	else
-	{
 		printf("Command not found--are you using some kind of weed?\n");
-	}
 	return 1;
 }
