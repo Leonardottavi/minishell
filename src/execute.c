@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 16:18:35 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:38:12 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,90 @@ int	execute_builtin(char **args)
 	return (-1);
 }
 
+char *get_cmd_path(char *cmd)
+{
+	char *path = getenv("PATH");
+	char *path_copy = ft_strdup(path);
+	char *dir = ft_strtok(path_copy, ":");
+
+	while (dir != NULL)
+	{
+		char *cmd_path = malloc(ft_strlen(dir) + ft_strlen(cmd) + 2);
+		ft_strcpy(cmd_path, dir);
+		ft_strcat(cmd_path, "/");
+		ft_strcat(cmd_path, cmd);
+
+		if (access(cmd_path, X_OK) == 0)
+		{
+			free(path_copy);
+			return cmd_path;
+		}
+
+		free(cmd_path);
+		dir = ft_strtok(NULL, ":");
+	}
+
+	free(path_copy);
+	return NULL;
+}
+
+
+int execute_without_pipe(char **args)
+{
+	pid_t process_id;
+
+	/* Ignore SIGINT in parent process */
+	signal(SIGINT, SIG_IGN);
+
+	process_id = fork();
+	if (-1 == process_id)
+	{
+		printf("Failed!\n");
+		exit(EXIT_FAILURE);
+	}
+	if (0 == process_id)
+	{
+		/* Handle SIGINT in child process */
+		signal(SIGINT, sigint_handler);
+
+		char *cmd_path = get_cmd_path(args[0]);
+		if (cmd_path != NULL)
+		{
+			if (-1 == execv(cmd_path, args))
+				printf("Command not found--are you using some kind of weed?\n");
+			free(cmd_path);
+		}
+		else
+		{
+			printf("Command not found--are you using some kind of weed?\n");
+		}
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		int status;
+		wait(&status);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			return (1);
+	}
+
+	/* Reset SIGINT handler in parent process */
+	signal(SIGINT, SIG_DFL);
+
+	return (1);
+}
+
 int	execute(char **args)
 {
-//	int	j;
+	int	j;
 	int	loop_status;
 
-//	j = 0;
+	j = 0;
 	loop_status = execute_builtin(args);
 	if (loop_status != -1)
 	{
 		return (loop_status);
 	}
-	/*
 	while (NULL != args[j])
 	{
 		if (0 == ft_strcmp(args[j], "|"))
@@ -46,7 +118,6 @@ int	execute(char **args)
 		}
 		j++;
 	}
-	*/
 	return (execute_without_pipe(args));
 }
 
