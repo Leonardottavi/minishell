@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:08:29 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 17:27:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,11 @@ void			sigquit_handler(int signum __attribute__((unused)));
 //no pipe execute
 char			*get_cmd_path(char *cmd);
 int				execute_without_pipe(char **args);
+
+//redirect functions
+void			redirection_control(char **args);
+void			redirect_heredoc(char **args, int i);
+
+
 
 #endif
