@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:45:24 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 11:43:17 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 13:10:05 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	execute_without_pipe(char **args)
 	}
 	if (0 == process_id)
 	{
-		signal(SIGQUIT, sigquit_handler);
 		char *cmd_path = get_cmd_path(args[0]);
 		if (cmd_path != NULL)
 		{
