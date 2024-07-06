@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 17:38:22 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 11:31:09 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,16 @@ void spawn_proc(int in, int out, char **cmd)
 			dup2(out, 1);
 			close(out);
 		}
-		execvp(cmd[0], cmd);
+		char *cmd_path = get_cmd_path(cmd[0]);
+		if (cmd_path != NULL)
+		{
+			execv(cmd_path, cmd);
+			free(cmd_path);
+		}
+		else
+		{
+			printf("Command not found--are you using some kind of weed?\n");
+		}
 		exit(1);
 	}
 }
@@ -55,6 +64,15 @@ int	execute_with_pipe(char **args)
 	}
 	if (in != 0)
 		dup2(in, 0);
-	execvp(cmd[0], cmd);
+	char *cmd_path = get_cmd_path(cmd[0]);
+	if (cmd_path != NULL)
+	{
+		execv(cmd_path, cmd);
+		free(cmd_path);
+	}
+	else
+	{
+		printf("Command not found--are you using some kind of weed?\n");
+	}
 	return 1;
 }
