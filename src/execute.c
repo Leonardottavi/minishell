@@ -6,32 +6,11 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 17:27:19 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 10:45:12 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	execute_without_pipe(char **args)
-{
-	pid_t	process_id;
-
-	process_id = fork();
-	if (-1 == process_id)
-	{
-		printf("Failed!\n");
-		exit(EXIT_FAILURE);
-	}
-	if (0 == process_id)
-	{
-		signal(SIGQUIT, sigquit_handler);
-		if (-1 == execvp(args[0], args))
-			printf("Command not found--are you using some kind of weed?\n");
-	}
-	else
-		wait(NULL);
-	return (1);
-}
 
 int	execute_builtin(char **args)
 {

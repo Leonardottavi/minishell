@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 17:48:55 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 10:54:23 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char			**get_args(char *input, char **args);
 int				main_loop(char *input, char **args_buffer);
 
 //function executers
-int				execute_without_pipe(char **args);
 int				execute(char **args);
 
 //pipe functions
@@ -59,5 +58,9 @@ int				execute_with_pipe(char **args);
 //signals
 void			sigint_handler(int signum __attribute__((unused)));
 void			sigquit_handler(int signum __attribute__((unused)));
+
+//no pipe execute
+char			*get_cmd_path(char *cmd);
+int				execute_without_pipe(char **args);
 
 #endif
