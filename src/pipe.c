@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 12:02:16 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 15:23:33 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,17 @@ int	execute_with_pipe(char **args)
 		pid = fork();
 		if (pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			execv(cmd_path, cmd);
 			free(cmd_path);
 			exit(1);
 		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
+
 			int status;
 			waitpid(pid, &status, 0);  /* Wait for the child process to finish */
 		}
