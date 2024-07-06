@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:00:36 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 15:02:43 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 12:41:09 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 void	sigint_handler(int signum __attribute__((unused))) //ctrlc
 {
-	rl_replace_line("", 0);
-	printf("\nminishell> ");
+	if(g_path == NULL)
+	{
+		printf("\n");
+	}
+	else if(get_builtin_functions() != NULL)
+	{
+		printf("\n");
+	}
+	else
+	{
+		printf("\nminishell> ");
+	}
 }
 
-void	sigquit_handler(int signum __attribute__((unused))) // ctrl"\"
-{
-	exit(0);
-}
+
