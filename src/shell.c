@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/05 16:12:30 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 16:11:15 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,13 @@ int	main(void)
 	char	**args_buffer;
 	int		result;
 	int		i;
+	int		stdin_copy;
+	int		stdout_copy;
 
+	stdin_copy = dup(STDIN_FILENO);
+	stdout_copy = dup(STDOUT_FILENO);
+	(void)stdin_copy;
+	(void)stdout_copy;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	if (init_resources(&input, &args_buffer) != 0)

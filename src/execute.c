@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 10:45:12 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/06 16:18:35 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ int	execute_builtin(char **args)
 
 int	execute(char **args)
 {
-	int	j;
+//	int	j;
 	int	loop_status;
 
-	j = 0;
+//	j = 0;
 	loop_status = execute_builtin(args);
 	if (loop_status != -1)
 	{
 		return (loop_status);
 	}
+	/*
 	while (NULL != args[j])
 	{
 		if (0 == ft_strcmp(args[j], "|"))
@@ -45,6 +46,7 @@ int	execute(char **args)
 		}
 		j++;
 	}
+	*/
 	return (execute_without_pipe(args));
 }
 
