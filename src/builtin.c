@@ -24,7 +24,7 @@ char	**get_builtin_commands(void)
 
 int (*(*get_builtin_functions(void))[])(char **)
 {
-	static int (*builtin_functions[BUILTIN_COMMANDS])(char**) = {
+	static int (*builtin_functions[BUILTIN_COMMANDS + 1])(char**) = {
 		&builtin_exit,
 		&builtin_cd,
 		&builtin_help,
@@ -33,6 +33,8 @@ int (*(*get_builtin_functions(void))[])(char **)
 		&builtin_unset,
 		&builtin_env,
 		&builtin_export,
+		&builtin_echo,
+
 	};
 return (&builtin_functions);
 
@@ -40,14 +42,15 @@ return (&builtin_functions);
 
 void print_arg(char *arg)
 {
-	if ((arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'')
-		|| (arg[0] == '\"' && arg[ft_strlen(arg) - 1] == '\"'))
+	if ((arg[0] == '\'' || arg[0] == '\"') && arg[strlen(arg) - 1] == arg[0])
 	{
-		arg[ft_strlen(arg) - 1] = '\0';
-		printf("%s", arg + 1);
+		arg[strlen(arg) - 1] = '\0'; // Rimuove l'apice finale
+		printf("%s", arg + 1); // Stampa senza l'apice iniziale
 	}
 	else
+	{
 		printf("%s", arg);
+	}
 }
 
 int builtin_echo(char **args)
@@ -56,32 +59,39 @@ int builtin_echo(char **args)
 	int newline = 1;
 	int inQuotes = 0;
 
-	if (args[1] && ft_strcmp(args[1], "-n") == 0)
+	if (args[1] && strcmp(args[1], "-n") == 0)
 	{
 		newline = 0;
 		i = 2;
 	}
+
 	while (args[i] != NULL)
 	{
+		// Gestisce gli apici
 		if (args[i][0] == '\'' || args[i][0] == '\"')
 		{
 			inQuotes = !inQuotes;
 			print_arg(args[i]);
 		}
 		else if (inQuotes)
+		{
+			// Se siamo tra apici, stampa tutto come parte dello stesso argomento
 			printf("%s", args[i]);
+		}
 		else
 		{
-			if (ft_strcmp(args[i], "|") == 0 && !inQuotes)
+			// Se non siamo tra apici, controlla per la pipe
+			if (strcmp(args[i], "|") == 0 && !inQuotes)
 				break;
 			print_arg(args[i]);
 		}
+
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
+
 	if (newline)
 		printf("\n");
-	free(args);
 	return 1;
 }
