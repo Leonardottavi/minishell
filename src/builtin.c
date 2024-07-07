@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:06:38 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:59:21 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,58 @@ return (&builtin_functions);
 
 }
 
-void	print_arg(char *arg)
+void print_arg(char *arg)
 {
-	if (arg[0] == '\'' || arg[0] == '\"')
+	if ((arg[0] == '\'' || arg[0] == '\"') && arg[strlen(arg) - 1] == arg[0])
 	{
-		arg[strlen(arg) - 1] = '\0';
-		printf("%s", arg + 1);
+		arg[strlen(arg) - 1] = '\0'; // Rimuove l'apice finale
+		printf("%s", arg + 1); // Stampa senza l'apice iniziale
 	}
 	else
+	{
 		printf("%s", arg);
+	}
 }
 
-int	builtin_echo(char **args)
+int builtin_echo(char **args)
 {
-	int	i;
-	int	newline;
+	int i = 1;
+	int newline = 1;
+	int inQuotes = 0;
 
-	newline = 1;
-	i = 1;
 	if (args[1] && strcmp(args[1], "-n") == 0)
 	{
 		newline = 0;
 		i = 2;
 	}
+
 	while (args[i] != NULL)
 	{
-		if (strcmp(args[i], "|") == 0)
-			break ;
-		print_arg(args[i]);
+		// Gestisce gli apici
+		if (args[i][0] == '\'' || args[i][0] == '\"')
+		{
+			inQuotes = !inQuotes;
+			print_arg(args[i]);
+		}
+		else if (inQuotes)
+		{
+			// Se siamo tra apici, stampa tutto come parte dello stesso argomento
+			printf("%s", args[i]);
+		}
+		else
+		{
+			// Se non siamo tra apici, controlla per la pipe
+			if (strcmp(args[i], "|") == 0 && !inQuotes)
+				break;
+			print_arg(args[i]);
+		}
+
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
+
 	if (newline)
 		printf("\n");
-	return (1);
+	return 1;
 }
