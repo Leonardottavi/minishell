@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 18:22:22 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 11:48:11 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	main_loop(char *input, char **args_buffer)
 	char	**args;
 	int		loop_status;
 	char	*old_input;
-
 	loop_status = 1;
 	while (loop_status)
 	{
@@ -84,7 +83,8 @@ int	main_loop(char *input, char **args_buffer)
 			continue ;
 		else
 		{
-			args = get_args(input, args_buffer);
+			char *input_expanded = expander(input);
+			args = get_args(input_expanded, args_buffer);
 			redirection_control(args);
 			loop_status = execute(args);
 		}

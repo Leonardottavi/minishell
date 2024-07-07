@@ -22,11 +22,12 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define MAX_BUFFER_SIZE 80 // buffer to hold user input
+# define MAX_BUFFER_SIZE 1000 // buffer to hold user input
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
 # define SIGNALS 3 // number of signals
 
@@ -71,5 +72,8 @@ void			redirect_heredoc(char **args, int i);
 //utils
 char			**ft_copy_environ(char **environ);
 void	free_environ_copy(char **environ_copy);
+
+//expansion
+char			*expander(char *input);
 
 #endif

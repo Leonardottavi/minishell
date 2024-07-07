@@ -78,5 +78,8 @@ char	*ft_strcat(char *dest, char *src);
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strtok(char *str, const char *delim);
 char	*ft_getenv(char **envp, const char *name);
+char	*ft_strpbrk(const char *s, const char *accept);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+char	*ft_strncat(char *dest, const char *src, size_t n);
 
 #endif
