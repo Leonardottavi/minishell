@@ -12,17 +12,18 @@
 
 #include "minishell.h"
 
-char **ft_copy_environ(char **environ)
+char	**ft_copy_environ(char **environ)
 {
-	int i = 0, count = 0;
+	int	i;
+	int	count;
 
+	count = 0;
+	i = 0;
 	while (environ[count] != NULL)
 		count++;
-
 	char **environ_copy = malloc((count + 1) * sizeof(char *));
 	if (environ_copy == NULL)
-		return NULL;
-
+		return (NULL);
 	while (i < count)
 	{
 		environ_copy[i] = ft_strdup(environ[i]);
@@ -30,7 +31,7 @@ char **ft_copy_environ(char **environ)
 	}
 	environ_copy[i] = NULL;
 
-	return environ_copy;
+	return (environ_copy);
 }
 
 void	free_environ_copy(char **environ_copy)

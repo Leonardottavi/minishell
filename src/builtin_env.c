@@ -84,5 +84,6 @@ int builtin_env(char **args __attribute__((unused)))
 			printf("%s\n", environ_copy[i]);
 		i++;
 	}
+	free_environ_copy(environ_copy);
 	return (1);
 }
