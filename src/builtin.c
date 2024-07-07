@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 18:59:21 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 19:04:39 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ return (&builtin_functions);
 
 void print_arg(char *arg)
 {
-	if ((arg[0] == '\'' || arg[0] == '\"') && arg[strlen(arg) - 1] == arg[0])
+	if ((arg[0] == '\'' && arg[strlen(arg) - 1] == '\'')
+		|| (arg[0] == '\"' && arg[strlen(arg) - 1] == '\"'))
 	{
-		arg[strlen(arg) - 1] = '\0'; // Rimuove l'apice finale
-		printf("%s", arg + 1); // Stampa senza l'apice iniziale
+		arg[strlen(arg) - 1] = '\0';
+		printf("%s", arg + 1);
 	}
 	else
-	{
 		printf("%s", arg);
-	}
 }
 
 int builtin_echo(char **args)
