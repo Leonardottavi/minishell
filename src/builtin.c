@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 19:06:27 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 19:07:13 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,21 @@ int builtin_echo(char **args)
 		newline = 0;
 		i = 2;
 	}
-
 	while (args[i] != NULL)
 	{
-		// Gestisce gli apici
 		if (args[i][0] == '\'' || args[i][0] == '\"')
 		{
 			inQuotes = !inQuotes;
 			print_arg(args[i]);
 		}
 		else if (inQuotes)
-		{
-			// Se siamo tra apici, stampa tutto come parte dello stesso argomento
 			printf("%s", args[i]);
-		}
 		else
 		{
-			// Se non siamo tra apici, controlla per la pipe
 			if (ft_strcmp(args[i], "|") == 0 && !inQuotes)
 				break;
 			print_arg(args[i]);
 		}
-
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
