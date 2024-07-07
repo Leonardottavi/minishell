@@ -32,7 +32,6 @@
 # define SIGNALS 3 // number of signals
 
 extern char		**environ;
-extern char		g_path[1024];
 char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
 

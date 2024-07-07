@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-char	g_path[1024];
-
 char	**get_builtin_commands(void)
 {
 	static char	*builtin_commands[] = {
