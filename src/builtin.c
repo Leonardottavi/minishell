@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 19:05:38 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 19:06:27 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ int builtin_echo(char **args)
 			printf(" ");
 		i++;
 	}
-
 	if (newline)
 		printf("\n");
+	free(args);
 	return 1;
 }
