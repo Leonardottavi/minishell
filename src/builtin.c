@@ -40,12 +40,11 @@ return (&builtin_functions);
 
 void	print_arg(char *arg)
 {
-	int	arg_len;
-
-	arg_len = ft_strlen(arg);
-	if ((arg[0] == '"' && arg[arg_len - 1] == '"')
-		|| (arg[0] == '\'' && arg[arg_len - 1] == '\''))
-		printf("%.*s", arg_len - 2, arg + 1);
+	if (arg[0] == '\'' || arg[0] == '\"')
+	{
+		arg[strlen(arg) - 1] = '\0';
+		printf("%s", arg + 1);
+	}
 	else
 		printf("%s", arg);
 }
@@ -57,13 +56,15 @@ int	builtin_echo(char **args)
 
 	newline = 1;
 	i = 1;
-	if (args[1] && ft_strcmp(args[1], "-n") == 0)
+	if (args[1] && strcmp(args[1], "-n") == 0)
 	{
 		newline = 0;
 		i = 2;
 	}
 	while (args[i] != NULL)
 	{
+		if (strcmp(args[i], "|") == 0)
+			break ;
 		print_arg(args[i]);
 		if (args[i + 1] != NULL)
 			printf(" ");
