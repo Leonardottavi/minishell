@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 19:04:39 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 19:05:38 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ return (&builtin_functions);
 
 void print_arg(char *arg)
 {
-	if ((arg[0] == '\'' && arg[strlen(arg) - 1] == '\'')
-		|| (arg[0] == '\"' && arg[strlen(arg) - 1] == '\"'))
+	if ((arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'')
+		|| (arg[0] == '\"' && arg[ft_strlen(arg) - 1] == '\"'))
 	{
-		arg[strlen(arg) - 1] = '\0';
+		arg[ft_strlen(arg) - 1] = '\0';
 		printf("%s", arg + 1);
 	}
 	else
@@ -56,7 +56,7 @@ int builtin_echo(char **args)
 	int newline = 1;
 	int inQuotes = 0;
 
-	if (args[1] && strcmp(args[1], "-n") == 0)
+	if (args[1] && ft_strcmp(args[1], "-n") == 0)
 	{
 		newline = 0;
 		i = 2;
@@ -78,7 +78,7 @@ int builtin_echo(char **args)
 		else
 		{
 			// Se non siamo tra apici, controlla per la pipe
-			if (strcmp(args[i], "|") == 0 && !inQuotes)
+			if (ft_strcmp(args[i], "|") == 0 && !inQuotes)
 				break;
 			print_arg(args[i]);
 		}
