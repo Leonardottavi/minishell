@@ -6,41 +6,47 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:19:19 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 11:51:29 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/07 15:38:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool copy_until_dollar(char **result, char **start, size_t *result_len) {
-	char *end = ft_strchr(*start, '$');
-	size_t len_to_copy = end ? (size_t)(end - *start) : ft_strlen(*start);
-	if (*result_len + len_to_copy >= MAX_BUFFER_SIZE) {
+bool	copy_until_dollar(char **result, char **start, size_t *result_len)
+{
+	char	*end;
+	size_t	len_to_copy;
+
+	end = ft_strchr(*start, '$');
+	len_to_copy = end ? (size_t)(end - *start) : ft_strlen(*start);
+	if (*result_len + len_to_copy >= MAX_BUFFER_SIZE)
+	{
 		printf("Errore: buffer overflow.\n");
 		return false;
 	}
 	ft_strncat(*result, *start, len_to_copy);
 	*result_len += len_to_copy;
 	*start += len_to_copy;
-	return true;
+	return (true);
 }
 
-bool expand_variable(char **result, char **start, size_t *result_len) {
-    char *end = ft_strpbrk(*start, " $\n\t");
-    if (!end) end = *start + ft_strlen(*start);
-
-    char varName[256];
-    if ((size_t)(end - *start) >= sizeof(varName)) {
-        printf("Errore: nome variabile troppo lungo.\n");
-        return false;
-    }
-    ft_strncpy(varName, *start, end - *start);
-    varName[end - *start] = '\0';
-
-    char *varValue = getenv(varName);
-    if (varValue) {
-        size_t varValue_len = ft_strlen(varValue);
-        if (*result_len + varValue_len >= MAX_BUFFER_SIZE) {
+bool	expand_variable(char **result, char **start, size_t *result_len)
+{
+	char *end = ft_strpbrk(*start, " $\n\t");
+	if (!end) end = *start + ft_strlen(*start);
+	char varName[256];
+	if ((size_t)(end - *start) >= sizeof(varName)) {
+		printf("Errore: nome variabile troppo lungo.\n");
+		return (false);
+	}
+	ft_strncpy(varName, *start, end - *start);
+	varName[end - *start] = '\0';
+	char *varValue = getenv(varName);
+	if (varValue)
+	{
+		size_t varValue_len = ft_strlen(varValue);
+        if (*result_len + varValue_len >= MAX_BUFFER_SIZE)
+		{
             printf("Errore: buffer overflow.\n");
             return false;
         }

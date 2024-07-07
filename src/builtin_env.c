@@ -12,12 +12,15 @@
 
 #include "minishell.h"
 
-int add_to_env(char *var)
+int	add_to_env(char *var)
 {
-	int i = 0;
+	int		i;
+	char	**new_env;
+
+	i = 0;
 	while (environ[i] != NULL)
 		i++;
-	char **new_env = realloc(environ, (i + 2) * sizeof(char *));
+	new_env = realloc(environ, (i + 2) * sizeof(char *));
 	if (new_env == NULL)
 		return -1;
 	new_env[i] = strdup(var);
@@ -70,8 +73,11 @@ int	builtin_unset(char **args)
 
 int builtin_env(char **args __attribute__((unused)))
 {
-	int i = 0;
-	char **environ_copy = ft_copy_environ(environ);
+	int		i;
+	char	**environ_copy;
+
+	i = 0;
+	environ_copy = ft_copy_environ(environ);
 	if (environ_copy == NULL)
 	{
 		printf("Environment not initialized.\n");
