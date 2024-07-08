@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:43:37 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 11:26:05 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char *get_cmd_path(char *cmd)
 	return NULL;
 }
 
-
 int execute_without_pipe(char **args)
 {
 	pid_t process_id;
@@ -67,16 +66,27 @@ int execute_without_pipe(char **args)
 	if (0 == process_id)
 	{
 		signal(SIGINT, sigint_handler);
-		char *cmd_path = get_cmd_path(args[0]);
-		if (cmd_path != NULL)
+
+		// Check if the command is "/bin" or similar
+		if (args[0] != NULL && strncmp(args[0], "/bin/", 5) == 0)
 		{
-			if (-1 == execv(cmd_path, args))
-				printf("Command not found--are you using some kind of weed?\n");
-			free(cmd_path);
+			if (-1 == execv(args[0], args))
+			{
+				perror("Failed to execute command");
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
-			printf("Command not found--are you using some kind of weed?\n");
+			char *cmd_path = get_cmd_path(args[0]);
+			if (cmd_path != NULL)
+			{
+				if (-1 == execv(cmd_path, args))
+					printf("Command not found--are you using some kind of weed?\n");
+				free(cmd_path);
+			}
+			else
+				printf("Command not found--are you using some kind of weed?\n");
 		}
 		exit(EXIT_FAILURE);
 	}
