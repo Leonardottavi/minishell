@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:19:19 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 15:38:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 11:54:12 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,26 @@ bool	expand_variable(char **result, char **start, size_t *result_len)
 	if (varValue)
 	{
 		size_t varValue_len = ft_strlen(varValue);
-        if (*result_len + varValue_len >= MAX_BUFFER_SIZE)
+		if (*result_len + varValue_len >= MAX_BUFFER_SIZE)
 		{
-            printf("Errore: buffer overflow.\n");
-            return false;
-        }
-        ft_strcat(*result, varValue);
-        *result_len += varValue_len;
-    }
-    *start = end;
-    return true;
+			printf("Errore: buffer overflow.\n");
+			return false;
+		}
+		ft_strcat(*result, varValue);
+		*result_len += varValue_len;
+	}
+	else if (varName[0] == '\0')
+	{
+		if (*result_len + 1 >= MAX_BUFFER_SIZE)
+		{
+			printf("Errore: buffer overflow.\n");
+			return false;
+		}
+		ft_strcat(*result, "$");
+		(*result_len)++;
+	}
+	*start = end;
+	return true;
 }
 
 void finalize_expansion(char **result, char *start, size_t *result_len) {
