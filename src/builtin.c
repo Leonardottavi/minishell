@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 09:31:36 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 13:49:25 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void print_arg(char *arg)
 	}
 }
 
-int builtin_echo(char **args)
+int	builtin_echo(char **args)
 {
 	int i = 1;
 	int newline = 1;
@@ -90,5 +90,7 @@ int builtin_echo(char **args)
 
 	if (newline)
 		printf("\n");
+
+	g_exit_status = 0; // Set exit status to 0 on successful execution
 	return 1;
 }

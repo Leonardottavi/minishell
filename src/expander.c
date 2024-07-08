@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:19:19 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 11:54:12 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 13:56:07 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,20 @@ bool	expand_variable(char **result, char **start, size_t *result_len)
 		ft_strcat(*result, varValue);
 		*result_len += varValue_len;
 	}
-	else if (varName[0] == '\0')
+	else if (strcmp(varName, "?") == 0) // If variable name is '?', it means we have a '$?'
+	{
+		char exit_status_str[4]; // Buffer to hold the exit status as a string
+		sprintf(exit_status_str, "%d", g_exit_status); // Convert g_exit_status to a string
+		size_t exit_status_len = ft_strlen(exit_status_str);
+		if (*result_len + exit_status_len >= MAX_BUFFER_SIZE)
+		{
+			printf("Errore: buffer overflow.\n");
+			return false;
+		}
+		ft_strcat(*result, exit_status_str);
+		*result_len += exit_status_len;
+	}
+	else if (varName[0] == '\0') // If variable name is empty, it means we have a standalone '$'
 	{
 		if (*result_len + 1 >= MAX_BUFFER_SIZE)
 		{

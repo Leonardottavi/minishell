@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 11:26:05 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 13:52:45 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int execute_without_pipe(char **args)
 	if (0 == process_id)
 	{
 		signal(SIGINT, sigint_handler);
-
-		// Check if the command is "/bin" or similar
 		if (args[0] != NULL && strncmp(args[0], "/bin/", 5) == 0)
 		{
 			if (-1 == execv(args[0], args))
@@ -94,6 +92,11 @@ int execute_without_pipe(char **args)
 	{
 		int status;
 		wait(&status);
+		if (WIFEXITED(status))
+		{
+			g_exit_status = WEXITSTATUS(status);
+		//	printf("exit status: %d\n", g_exit_status);
+		}
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			return (1);
 	}

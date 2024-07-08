@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 09:43:21 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 13:57:29 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ int	builtin_pwd(char **args __attribute__((unused)))
 	if (cwd != NULL)
 	{
 		printf("%s\n", cwd);
+		g_exit_status = 0;
 		free(cwd);
 	}
 	else
+	{
 		perror("mini-shell");
+		g_exit_status = 1;
+	}
 	return (1);
 }
 
@@ -32,17 +36,21 @@ int	builtin_exit(char **args)
 	if (args[1] != NULL)
 	{
 		printf("stai cercando di uscire o di ballare la samba?\n");
+		g_exit_status = 1; // Set exit status to 1 on error
 		return (1);
 	}
 	else
-		exit(0);
+		exit(g_exit_status); // Exit with the status of the last executed command
 	return (0);
 }
 
 int	builtin_cd(char **args)
 {
 	if (NULL == args[1])
+	{
 		printf("mini-shell:\tplease provide the new directory\n");
+		g_exit_status = 1; // Set exit status to 1 on error
+	}
 	else
 	{
 		char *path = args[1];
@@ -54,7 +62,12 @@ int	builtin_cd(char **args)
 			path++;
 		}
 		if (chdir(path) < 0)
+		{
 			perror("mini-shell");
+			g_exit_status = 1; // Set exit status to 1 on error
+		}
+		else
+			g_exit_status = 0; // Set exit status to 0 on successful execution
 	}
 	return (1);
 }
@@ -69,5 +82,6 @@ int	builtin_help(char **args __attribute__((unused)))
 	printf("\t-unset\tunsets the environment variable\n");
 	printf("\t-env\tprints the environment variables\n");
 	printf("\t-il resto dei comandi lo fa execve, ma mai bene\n");
+	g_exit_status = 0;
 	return (1);
 }
