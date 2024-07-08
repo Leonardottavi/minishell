@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 13:44:31 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:12:58 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,58 @@
 
 int	g_exit_status = 0;
 
-char	**get_args(char *input, char **args)
-{
-	int		i;
-	int		j;
-	char	*token;
 
+char	*remove_newline(char *str) {
+	char *newline;
+
+	newline = ft_strchr(str, '\n');
+	if (newline)
+		*newline = '\0';
+	return str;
+}
+
+char	**get_args(char *input, char **args) {
+	int i;
+	char *token;
+	char quote_char;
+	int in_quotes; // Flag per tenere traccia se siamo all'interno delle virgolette
+
+	quote_char = '\0';
 	i = 0;
-	token = ft_strtok(input, " ");
-	while (NULL != token)
-	{
-		args[i] = token;
-		token = ft_strtok(NULL, " ");
+	in_quotes = 0;
+	while (*input) {
+		// Ignora gli spazi iniziali
+		while ((*input>8 && *input<14) || *input==32)
+			input++;
+		// Controlla se il token inizia con una virgolette
+		if (*input == '"' || *input == '\'')
+		{
+			in_quotes = 1;
+			quote_char = *input;
+			input++;
+		}
+		// Trova la fine del token
+		token = input;
+		while (*input && ((in_quotes && *input != quote_char) || (!in_quotes && !((*input>8 && *input<14) || *input==32))))
+			input++;
+		// Se il token è racchiuso tra virgolette, ignora la chiusura delle virgolette
+		if (in_quotes && *input == quote_char)
+		{
+			in_quotes = 0;
+			*input = '\0';
+			input++;
+		}
+		else if (!in_quotes && ((*input>8 && *input<14) || *input==32))
+		{
+			*input = '\0';
+			input++;
+		}
+		// Rimuove il newline alla fine del token
+		args[i] = remove_newline(token);
 		i++;
 	}
 	args[i] = NULL;
-	j = 0;
-	while (NULL != args[j])
-	{
-		args[j] = ft_strtok(args[j], "\n");
-		j++;
-	}
-	return (args);
+	return args;
 }
 
 char	*get_input(char *buffer)
