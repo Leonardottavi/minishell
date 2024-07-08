@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:06:20 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 09:43:21 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int	builtin_help(char **args __attribute__((unused)))
 	printf("\t-echo\tprints the arguments\n");
 	printf("\t-unset\tunsets the environment variable\n");
 	printf("\t-env\tprints the environment variables\n");
+	printf("\t-il resto dei comandi lo fa execve, ma mai bene\n");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/07 18:10:49 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/08 10:48:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,27 @@
 int	add_to_env(char *var)
 {
 	int		i;
+	int		j;
 	char	**new_env;
 
 	i = 0;
 	while (environ[i] != NULL)
 		i++;
-	new_env = realloc(environ, (i + 2) * sizeof(char *));
+	new_env = (char **)malloc((i + 2) * sizeof(char *));
 	if (new_env == NULL)
-		return -1;
-	new_env[i] = strdup(var);
+		return (-1);
+	j = 0;
+	while (j < i)
+	{
+		new_env[j] = environ[j];
+		j++;
+	}
+	new_env[i] = ft_strdup(var);
 	if (new_env[i] == NULL)
-		return -1;
+		return (-1);
 	new_env[i + 1] = NULL;
 	environ = new_env;
-	return 0;
+	return (0);
 }
 
 int	remove_from_env(char *var)
@@ -47,11 +54,11 @@ int	remove_from_env(char *var)
 				i++;
 			}
 			environ[i] = NULL;
-			return 0;
+			return (0);
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 int	builtin_export(char **args)
@@ -98,7 +105,7 @@ int	builtin_unset(char **args)
 	return (1);
 }
 
-int builtin_env(char **args __attribute__((unused)))
+int	builtin_env(char **args __attribute__((unused)))
 {
 	int		i;
 	char	**environ_copy;
@@ -110,7 +117,6 @@ int builtin_env(char **args __attribute__((unused)))
 		printf("Environment not initialized.\n");
 		return (1);
 	}
-
 	while (environ_copy[i] != NULL)
 	{
 		if (ft_strncmp(environ_copy[i], "_=", 2) != 0)
