@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 14:51:21 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 15:11:02 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,9 @@ int execute_with_pipe(char **args) {
             }
 
             // Execute the command
-            execvp(args[pipe_locations[i] + 1], &args[pipe_locations[i] + 1]);
-            perror("execve");
+			char *cmd_path = get_cmd_path(args[pipe_locations[i] + 1]);
+			execve(cmd_path, args + pipe_locations[i] + 1, environ);
+			perror("execve");
             exit(EXIT_FAILURE);
         }
         i++;
