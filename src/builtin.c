@@ -40,19 +40,6 @@ return (&builtin_functions);
 
 }
 
-void print_arg(char *arg)
-{
-	if ((arg[0] == '\'' || arg[0] == '\"') && arg[ft_strlen(arg) - 1] == arg[0])
-	{
-		arg[ft_strlen(arg) - 1] = '\0'; // Rimuove l'apice finale
-		printf("%s", arg + 1); // Stampa senza l'apice iniziale
-	}
-	else
-	{
-		printf("%s", arg);
-	}
-}
-
 int	builtin_echo(char **args)
 {
 	int i = 1;
@@ -66,7 +53,7 @@ int	builtin_echo(char **args)
 
 	while (args[i] != NULL)
 	{
-		print_arg(args[i]);
+		printf("%s", args[i]);
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
@@ -76,5 +63,5 @@ int	builtin_echo(char **args)
 		printf("\n");
 
 	g_exit_status = 0; // Set exit status to 0 on successful execution
-	return 1;
+	return 0;
 }
