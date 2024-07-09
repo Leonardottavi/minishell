@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 13:52:45 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 14:58:01 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int execute_without_pipe(char **args)
 		signal(SIGINT, sigint_handler);
 		if (args[0] != NULL && strncmp(args[0], "/bin/", 5) == 0)
 		{
-			if (-1 == execv(args[0], args))
+			if (-1 == execve(args[0], args, environ))
 			{
 				perror("Failed to execute command");
 				exit(EXIT_FAILURE);
@@ -79,7 +79,7 @@ int execute_without_pipe(char **args)
 			char *cmd_path = get_cmd_path(args[0]);
 			if (cmd_path != NULL)
 			{
-				if (-1 == execv(cmd_path, args))
+				if (-1 == execve(cmd_path, args, environ))
 					printf("Command not found--are you using some kind of weed?\n");
 				free(cmd_path);
 			}
