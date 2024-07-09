@@ -57,7 +57,6 @@ int	builtin_echo(char **args)
 {
 	int i = 1;
 	int newline = 1;
-	int inQuotes = 0;
 
 	if (args[1] && ft_strcmp(args[1], "-n") == 0)
 	{
@@ -67,22 +66,7 @@ int	builtin_echo(char **args)
 
 	while (args[i] != NULL)
 	{
-		// Gestisce gli apici
-		if (args[i][0] == '\'' || args[i][0] == '\"')
-		{
-			inQuotes = !inQuotes;
-			print_arg(args[i]);
-		}
-		else if (inQuotes)
-			printf("%s", args[i]);
-			// Se siamo tra apici, stampa tutto come parte dello stesso argomento
-		else
-		{
-			// Se non siamo tra apici, controlla per la pipe
-			if (ft_strcmp(args[i], "|") == 0 && !inQuotes)
-				break;
-			print_arg(args[i]);
-		}
+		print_arg(args[i]);
 		if (args[i + 1] != NULL)
 			printf(" ");
 		i++;
