@@ -78,6 +78,11 @@ char	*get_input(char *buffer)
 		printf("exit\n");
 		exit(0);
 	}
+	else
+		{
+			while(*buffer == ' ')
+				buffer++;
+		}
 	return (buffer);
 }
 
@@ -128,11 +133,11 @@ int	main_loop(char *input, char **args_buffer)
 			args = get_args(input_expanded, args_buffer);
 			redirection_control(args);
 			loop_status = execute(args);
-			free(input_expanded);
 		}
 	}
+	free_environ_copy(args_buffer);
 	free(input);
-	return (0);
+	return (1);
 }
 
 int	main(void)
@@ -159,6 +164,6 @@ int	main(void)
 		free(args_buffer[i]);
 		i++;
 	}
-	free(args_buffer);
+	free_environ_copy(args_buffer);
 	return (result);
 }

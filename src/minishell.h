@@ -27,7 +27,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define MAX_BUFFER_SIZE 1000 // buffer to hold user input
+# define MAX_BUFFER_SIZE 10000 // buffer to hold user input
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
 # define SIGNALS 3 // number of signals
 

@@ -63,5 +63,5 @@ int	builtin_echo(char **args)
 		printf("\n");
 
 	g_exit_status = 0; // Set exit status to 0 on successful execution
-	return 0;
+	return 1;
 }
