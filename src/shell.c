@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 00:12:58 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:37:10 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ char	*get_input(char *buffer)
 	add_history(buffer);
 	if(NULL == buffer)
 	{
-		printf("exit\n");
 		free(buffer);
+		printf("exit\n");
 		exit(0);
 	}
 	return (buffer);
@@ -99,6 +99,15 @@ int	init_resources(char **input, char ***args_buffer)
 	return (0);
 }
 
+void free_args(char **args) {
+	int i = 0;
+	while (args[i] != NULL) {
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
+
 int	main_loop(char *input, char **args_buffer)
 {
 	char	**args;
@@ -119,8 +128,10 @@ int	main_loop(char *input, char **args_buffer)
 			args = get_args(input_expanded, args_buffer);
 			redirection_control(args);
 			loop_status = execute(args);
+			free(input_expanded);
 		}
 	}
+	free(input);
 	return (0);
 }
 
