@@ -52,7 +52,6 @@ int	builtin_export(char **args)
 	{
 		if (add_to_env(args[i]) != 0)
 		{
-			perror("mini-shell: export");
 			return (1);
 		}
 		i++;
