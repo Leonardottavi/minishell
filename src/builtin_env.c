@@ -96,7 +96,6 @@ int	builtin_unset(char **args)
 	{
 		if (remove_from_env(args[i]) != 0)
 		{
-			perror("mini-shell: export");
 			return (1);
 		}
 		i++;
