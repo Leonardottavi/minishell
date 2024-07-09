@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 15:48:30 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 15:54:08 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ char *get_cmd_path(char *cmd)
 	char *path = getenv("PATH");
 	char *path_copy = ft_strdup(path);
 	char *dir = ft_strtok(path_copy, ":");
+	// Check if the command is a relative or absolute path
+	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/')) {
+		if (access(cmd, X_OK) == 0) {
+			return ft_strdup(cmd);
+		} else {
+			return NULL;
+		}
+	}
 
 	while (dir != NULL)
 	{
