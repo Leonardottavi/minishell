@@ -38,6 +38,28 @@ int	add_to_env(char *var)
 	return (0);
 }
 
+int	builtin_export(char **args)
+{
+	int	i;
+
+	if (args[1] == NULL)
+	{
+		printf("mini-shell: export: not enough arguments\n");
+		return (1);
+	}
+	i = 1;
+	while (args[i] != NULL)
+	{
+		if (add_to_env(args[i]) != 0)
+		{
+			perror("mini-shell: export");
+			return (1);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	remove_from_env(char *var)
 {
 	int		i;
@@ -55,28 +77,6 @@ int	remove_from_env(char *var)
 			}
 			environ[i] = NULL;
 			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	builtin_export(char **args)
-{
-	int	i;
-
-	if (args[1] == NULL)
-	{
-		printf("mini-shell: export: not enough arguments\n");
-		return (1);
-	}
-	i = 1;
-	while (args[i] != NULL)
-	{
-		if (add_to_env(args[i]) != 0)
-		{
-			perror("mini-shell: export");
-			return (1);
 		}
 		i++;
 	}
