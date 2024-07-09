@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 15:07:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 15:48:30 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char *get_cmd_path(char *cmd)
 int execute_without_pipe(char **args)
 {
 	pid_t process_id;
-	signal(SIGINT, SIG_IGN);
 	process_id = fork();
 	if (-1 == process_id)
 	{

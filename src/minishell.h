@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 13:44:44 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 15:47:24 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int				execute(char **args);
 int				execute_with_pipe(char **args);
 
 //signals
-void			sigint_handler(int signum __attribute__((unused)));
-void			sigquit_handler(int signum __attribute__((unused)));
+void			sigint_handler(pid_t pid);
 
 //no pipe execute
 char			*get_cmd_path(char *cmd);
