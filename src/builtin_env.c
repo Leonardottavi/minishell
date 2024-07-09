@@ -38,6 +38,41 @@ int	add_to_env(char *var)
 	return (0);
 }
 
+int	remove_from_env(char *var, int len)
+{
+	int		i;
+
+	i = 0;
+	while (environ[i] != NULL)
+	{
+		if (ft_strncmp(environ[i], var, len) == 0 && environ[i][len] && environ[i][len]=='=')
+		{
+			free(environ[i]);
+			while (environ[i + 1] != NULL)
+			{
+				environ[i] = environ[i + 1];
+				i++;
+			}
+			environ[i] = NULL;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	strfind(char *str)
+{
+	int i=0;
+	while(str[i])
+	{
+		if(str[i]=='=')
+			return(i);
+	i++;
+	}
+	return(-1);
+}
+
 int	builtin_export(char **args)
 {
 	int	i;
@@ -50,32 +85,11 @@ int	builtin_export(char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		if (add_to_env(args[i]) != 0)
+		remove_from_env(args[i],strfind(args[i]));
+		if(strfind(args[i])!=-1 && add_to_env(args[i]) != 0)
 		{
+			perror("mini-shell: export");
 			return (1);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	remove_from_env(char *var)
-{
-	int		i;
-
-	i = 0;
-	while (environ[i] != NULL)
-	{
-		if (ft_strncmp(environ[i], var, ft_strlen(var)) == 0)
-		{
-			free(environ[i]);
-			while (environ[i + 1] != NULL)
-			{
-				environ[i] = environ[i + 1];
-				i++;
-			}
-			environ[i] = NULL;
-			return (0);
 		}
 		i++;
 	}
@@ -94,8 +108,9 @@ int	builtin_unset(char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		if (remove_from_env(args[i]) != 0)
+		if (remove_from_env(args[i],ft_strlen(args[i])) != 0)
 		{
+			perror("mini-shell: export");
 			return (1);
 		}
 		i++;
