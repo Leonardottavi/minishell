@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 15:23:33 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/09 14:51:21 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ int execute_with_pipe(char **args) {
 
     i=0;
     while (i++ < num_commands)
+	{
         wait(NULL);
+	}
 	return(1);
 }
