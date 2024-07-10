@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 11:15:45 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:11:00 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void			redirect_heredoc(char **args, int i);
 
 //utils
 char			**ft_copy_environ(char **environ);
-void	free_env(char **environ_copy);
+void			free_env(char **environ_copy);
+char			*remove_newline(char *str);
 
 //expansion
 char			*expander(char *input);

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 18:13:11 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 11:12:28 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:10:38 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,14 @@ void	free_env(char **environ_copy)
 		i++;
 	}
 	free(environ_copy);
+}
+
+char	*remove_newline(char *str)
+{
+	char *newline;
+
+	newline = ft_strchr(str, '\n');
+	if (newline)
+		*newline = '\0';
+	return (str);
 }
