@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 11:15:45 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 12:40:44 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,14 @@ void	free_env(char **environ_copy);
 
 //expansion
 char			*expander(char *input);
+
+//args
+char			*remove_newline(char *str);
+void			skip_whitespace(char **input);
+void			handle_quotes(char **input, int *in_quotes, char *quote_char);
+void			find_end_of_token(char **input, int in_quotes, char quote_char);
+void			handle_end_of_token(char **input, int *in_quotes);
+int				all_whitespace(char *s);
+char			**get_args(char *input, char **args);
 
 #endif
