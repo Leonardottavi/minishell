@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:19:19 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 15:39:48 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 16:04:47 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ bool	copy_until_dollar(char **result, char **start, size_t *result_len)
 	return (true);
 }
 
-void finalize_expansion(char **result, char *start, size_t *result_len) {
+void finalize_expansion(char **result, char *start, size_t *result_len)
+{
 	if (*result_len + ft_strlen(start) < MAX_BUFFER_SIZE) {
 		ft_strcat(*result, start);
 	} else {

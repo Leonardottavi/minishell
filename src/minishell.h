@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 15:52:06 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 16:06:04 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int				builtin_echo(char **args);
 int				builtin_unset(char **args);
 int				builtin_export(char **args);
 
-
 // function shell
 char			*get_input(char *buffer);
 char			**get_args(char *input, char **args);
@@ -73,6 +72,7 @@ void			redirect_heredoc(char **args, int i);
 char			**ft_copy_environ(char **environ);
 void			free_env(char **environ_copy);
 char			*remove_newline(char *str);
+int				strfind(char *str, char p);
 
 //expansion
 char			*expander(char *input);

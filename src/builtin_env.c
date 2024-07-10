@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 11:16:37 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 16:03:45 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ int	remove_from_env(char *var, int len)
 	i = 0;
 	while (environ[i] != NULL)
 	{
-		if (ft_strncmp(environ[i], var, len) == 0 && environ[i][len] && environ[i][len]=='=')
+		if (ft_strncmp(environ[i], var, len) == 0
+			&& environ[i][len] && environ[i][len] == '=')
 		{
-			//free(environ[i]);
+			free(environ[i]);
 			while (environ[i + 1] != NULL)
 			{
 				environ[i] = environ[i + 1];
@@ -59,18 +60,6 @@ int	remove_from_env(char *var, int len)
 		i++;
 	}
 	return (1);
-}
-
-int	strfind(char *str, char p)
-{
-	int i=0;
-	while(str[i])
-	{
-		if(str[i]==p)
-			return(i);
-	i++;
-	}
-	return(-1);
 }
 
 int	builtin_export(char **args)
@@ -85,8 +74,8 @@ int	builtin_export(char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		remove_from_env(args[i],strfind(args[i],'='));
-		if(strfind(args[i],'=')!=-1 && add_to_env(args[i]) != 0)
+		remove_from_env(args[i], strfind(args[i], '='));
+		if (strfind(args[i], '=') != -1 && add_to_env(args[i]) != 0)
 		{
 			perror("mini-shell: export");
 			return (1);
@@ -108,7 +97,7 @@ int	builtin_unset(char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		if (remove_from_env(args[i],ft_strlen(args[i])) != 0)
+		if (remove_from_env(args[i], ft_strlen(args[i])) != 0)
 		{
 			perror("mini-shell: export");
 			return (1);
