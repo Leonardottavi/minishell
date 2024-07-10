@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 16:06:04 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 16:30:05 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int				builtin_export(char **args);
 char			*get_input(char *buffer);
 char			**get_args(char *input, char **args);
 int				main_loop(char *input, char **args_buffer);
+int				all_whitespace(char *s);
+int	init_resources(char **input, char ***args_buffer);
 
 //function executers
 int				execute(char **args);
