@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 16:28:46 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:20:44 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	builtin_exit(char **args)
 	}
 	else
 	{
-		free(args[0]);
-		free(args);
+		free_env(args);
 		exit(g_exit_status); // Exit with the status of the last executed command
 	}
 	return (0);

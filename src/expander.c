@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:19:19 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 13:56:07 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:08:54 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void finalize_expansion(char **result, char *start, size_t *result_len) {
 char *expander(char *input) {
     char *result = malloc(MAX_BUFFER_SIZE);
     if (!result) {
+		free(result);
         perror("malloc");
         return NULL;
     }

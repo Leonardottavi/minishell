@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 16:37:10 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:20:44 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ int	init_resources(char **input, char ***args_buffer)
 	if (NULL == *input)
 	{
 		perror("malloc");
+		free(*input);
 		return (-1);
 	}
 	*args_buffer = (char **)malloc(sizeof(char *) * MAX_BUFFER_SIZE);
 	if (NULL == *args_buffer)
 	{
 		perror("malloc");
-		free(*input);
+		free(args_buffer);
 		return (-1);
 	}
 	return (0);
@@ -133,9 +134,10 @@ int	main_loop(char *input, char **args_buffer)
 			args = get_args(input_expanded, args_buffer);
 			redirection_control(args);
 			loop_status = execute(args);
+			free(input_expanded); // Free the memory allocated by expander
 		}
 	}
-	free_environ_copy(args_buffer);
+	free_env(args_buffer);
 	free(input);
 	return (1);
 }
@@ -164,6 +166,6 @@ int	main(void)
 		free(args_buffer[i]);
 		i++;
 	}
-	free_environ_copy(args_buffer);
+	free(input);
 	return (result);
 }
