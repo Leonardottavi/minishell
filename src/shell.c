@@ -6,80 +6,13 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 11:16:37 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 12:28:44 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit_status = 0;
-
-
-char	*remove_newline(char *str) {
-	char *newline;
-
-	newline = ft_strchr(str, '\n');
-	if (newline)
-		*newline = '\0';
-	return str;
-}
-
-char **get_args(char *input, char **args) {
-    int i = 0;
-    char *token;
-    char quote_char = '\0';
-    int in_quotes = 0;
-
-    while (*input) {
-        // Ignora gli spazi iniziali
-        while ((*input > 8 && *input < 14) || *input == 32)
-            input++;
-        if (*input == '\0')
-            break;
-
-        // Controlla se il token inizia con una virgolette
-        if (*input == '"' || *input == '\'') {
-            in_quotes = 1;
-            quote_char = *input;
-            input++;
-        }
-
-        // Trova la fine del token
-        token = input;
-        while (*input && ((in_quotes && *input != quote_char) || (!in_quotes && !((*input > 8 && *input < 14) || *input == 32))))
-            input++;
-
-        // Se il token è racchiuso tra virgolette, ignora la chiusura delle virgolette
-        if (in_quotes && *input == quote_char) {
-            in_quotes = 0;
-            *input = '\0';
-            input++;
-        } else if (!in_quotes && ((*input > 8 && *input < 14) || *input == 32)) {
-            *input = '\0';
-            input++;
-        }
-
-        // Rimuove il newline alla fine del token
-        args[i] = remove_newline(token);
-        i++;
-    }
-
-    args[i] = NULL;
-    return args;
-}
-
-int all_whitespace(char *s)
-{
-    int i = 0;
-
-    while (s[i])
-    {
-        if (!((s[i] > 8 && s[i] < 14) || s[i] == 32))
-            return 0;
-        i++;
-    }
-    return 1;
-}
 
 char	*get_input(char *buffer)
 {
