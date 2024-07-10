@@ -6,16 +6,16 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:00:36 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 15:48:01 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:21:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void sigint_handler(pid_t pid)
+void	sigint_handler(pid_t pid)
 {
 	signal(SIGINT, SIG_IGN);
-	if(pid > 0)
+	if (pid > 0)
 	{
 		printf("\n");
 		rl_on_new_line();

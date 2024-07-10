@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 14:10:24 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:24:20 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	g_exit_status = 0;
 
-char **get_args(char *input, char **args) {
-	int i = 0;
+char	**get_args(char *input, char **args)
+{
+	int	i = 0;
 	char *token;
 	char quote_char = '\0';
 	int in_quotes = 0;
@@ -24,7 +25,8 @@ char **get_args(char *input, char **args) {
 			input++;
 		if (*input == '\0')
 			break;
-		if (*input == '"' || *input == '\'') {
+		if (*input == '"' || *input == '\'')
+		{
 			in_quotes = 1;
 			quote_char = *input;
 			input++;
@@ -32,11 +34,14 @@ char **get_args(char *input, char **args) {
 		token = input;
 		while (*input && ((in_quotes && *input != quote_char) || (!in_quotes && !((*input > 8 && *input < 14) || *input == 32))))
 			input++;
-		if (in_quotes && *input == quote_char) {
+		if (in_quotes && *input == quote_char)
+		{
 			in_quotes = 0;
 			*input = '\0';
 			input++;
-		} else if (!in_quotes && ((*input > 8 && *input < 14) || *input == 32)) {
+		}
+		else if (!in_quotes && ((*input > 8 && *input < 14) || *input == 32))
+		{
 			*input = '\0';
 			input++;
 		}
@@ -44,22 +49,27 @@ char **get_args(char *input, char **args) {
 		i++;
 	}
 	args[i] = NULL;
-	return args;
+	return (args);
 }
 
-int all_whitespace(char *s) {
-	int i = 0;
-	while (s[i]) {
+int	all_whitespace(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
 		if (!((s[i] > 8 && s[i] < 14) || s[i] == 32))
-			return 0;
+			return (0);
 		i++;
 	}
-	return 1;
+	return (1);
 }
+
 char	*get_input(char *buffer)
 {
 	buffer = readline("minishell> ");
-	if(NULL == buffer)
+	if (NULL == buffer)
 	{
 		free(buffer);
 		printf("exit\n");
@@ -88,9 +98,13 @@ int	init_resources(char **input, char ***args_buffer)
 	return (0);
 }
 
-void free_args(char **args) {
-	int i = 0;
-	while (args[i] != NULL) {
+void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i] != NULL)
+	{
 		free(args[i]);
 		i++;
 	}
