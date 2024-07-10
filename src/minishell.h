@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 14:11:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:52:06 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,9 @@ char			*remove_newline(char *str);
 
 //expansion
 char			*expander(char *input);
+bool			expand_variable(char **result, char **start, size_t *result_len);
+bool			handle_var_value(char **result, char *varvalue, size_t *result_len);
+bool			handle_exit_status(char **result, size_t *result_len);
+bool			handle_empty_var_name(char **result, size_t *result_len);
 
 #endif
