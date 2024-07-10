@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 18:35:28 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:44:40 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ int				init_resources(char **input, char ***args_buffer);
 char			**get_args(char *input, char **args);
 char			*skip_whitespace(char *input);
 char			*process_token(char *input, char **arg, int *i);
-char			*find_token_end(char *input, char quote_char, int in_quotes);
-char			*handle_end_of_token(char *input, int in_quotes, char quote_char);
-char			*rm_line(char *str); // Presumo che la funzione remove_newline sia già definita
-
+char			*find_token_end(char *input,
+					char quote_char, int in_quotes);
+char			*handle_end_of_token(char *input,
+					int in_quotes, char quote_char);
+char			*rm_line(char *str);
 //function executers
 int				execute(char **args);
 
