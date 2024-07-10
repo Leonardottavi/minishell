@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:19:19 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 10:08:54 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:15:04 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	copy_until_dollar(char **result, char **start, size_t *result_len)
 
 bool	expand_variable(char **result, char **start, size_t *result_len)
 {
-	char *end = ft_strpbrk(*start, " $\n\t");
+	char *end = ft_strpbrk(*start, " $\n\t\"");
 	if (!end) end = *start + ft_strlen(*start);
 	char varName[256];
 	if ((size_t)(end - *start) >= sizeof(varName)) {
@@ -91,7 +91,6 @@ void finalize_expansion(char **result, char *start, size_t *result_len) {
 char *expander(char *input) {
     char *result = malloc(MAX_BUFFER_SIZE);
     if (!result) {
-		free(result);
         perror("malloc");
         return NULL;
     }

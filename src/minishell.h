@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 10:26:36 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:15:45 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define MAX_BUFFER_SIZE 10000 // buffer to hold user input
+# define MAX_BUFFER_SIZE 1000 // buffer to hold user input
 # define BUILTIN_COMMANDS 8 // number of bult-in commands
 # define SIGNALS 3 // number of signals
 
 extern int		g_exit_status;
 extern char		**environ;
+int				strfind(char *str, char p);
 char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
 
@@ -69,8 +70,8 @@ void			redirection_control(char **args);
 void			redirect_heredoc(char **args, int i);
 
 //utils
-void			*ft_realloc(void *ptr, size_t old_size, size_t new_size);
-void			free_env(char **environ_copy);
+char			**ft_copy_environ(char **environ);
+void	free_env(char **environ_copy);
 
 //expansion
 char			*expander(char *input);

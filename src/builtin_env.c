@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 10:47:13 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 11:16:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_to_env(char *var)
 	i = 0;
 	while (environ[i] != NULL)
 		i++;
-	new_env = (char **)ft_realloc(environ, sizeof(char *) * i, sizeof(char *) * (i + 2));
+	new_env = (char **)malloc((i + 2) * sizeof(char *));
 	if (new_env == NULL)
 		return (-1);
 	j = 0;
@@ -47,7 +47,7 @@ int	remove_from_env(char *var, int len)
 	{
 		if (ft_strncmp(environ[i], var, len) == 0 && environ[i][len] && environ[i][len]=='=')
 		{
-			free(environ[i]);
+			//free(environ[i]);
 			while (environ[i + 1] != NULL)
 			{
 				environ[i] = environ[i + 1];
@@ -61,12 +61,12 @@ int	remove_from_env(char *var, int len)
 	return (1);
 }
 
-int	strfind(char *str)
+int	strfind(char *str, char p)
 {
 	int i=0;
 	while(str[i])
 	{
-		if(str[i]=='=')
+		if(str[i]==p)
 			return(i);
 	i++;
 	}
@@ -85,8 +85,8 @@ int	builtin_export(char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		remove_from_env(args[i],strfind(args[i]));
-		if(strfind(args[i])!=-1 && add_to_env(args[i]) != 0)
+		remove_from_env(args[i],strfind(args[i],'='));
+		if(strfind(args[i],'=')!=-1 && add_to_env(args[i]) != 0)
 		{
 			perror("mini-shell: export");
 			return (1);
@@ -124,7 +124,7 @@ int	builtin_env(char **args __attribute__((unused)))
 	char	**environ_copy;
 
 	i = 0;
-	environ_copy = (char **)ft_realloc(environ, sizeof(char *) * i, sizeof(char *) * (i + 2));
+	environ_copy = ft_copy_environ(environ);
 	if (environ_copy == NULL)
 	{
 		printf("Environment not initialized.\n");
@@ -136,6 +136,6 @@ int	builtin_env(char **args __attribute__((unused)))
 			printf("%s\n", environ_copy[i]);
 		i++;
 	}
-	free(environ_copy);
+	free_env(environ_copy);
 	return (1);
 }
