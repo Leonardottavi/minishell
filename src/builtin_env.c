@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 16:03:45 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 21:44:16 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	remove_from_env(char *var, int len)
 		if (ft_strncmp(environ[i], var, len) == 0
 			&& environ[i][len] && environ[i][len] == '=')
 		{
-			free(environ[i]);
 			while (environ[i + 1] != NULL)
 			{
 				environ[i] = environ[i + 1];
