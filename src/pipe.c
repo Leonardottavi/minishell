@@ -6,53 +6,52 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 17:14:23 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 19:00:40 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 21:04:21 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_pipes_and_commands(char **args, int *num_pipes,
-	int *num_commands, int *pipe_locations)
+int	count_pipes_and_commands(char **args, t_pipe *data)
 {
 	int	i;
 
 	i = 0;
-	pipe_locations[0] = -1;
+	data->pipe_locations[0] = -1;
 	while (args[i])
 	{
-		if (ft_strcmp(args[i], "|") == 0)
+		if (strcmp(args[i], "|") == 0)
 		{
-			pipe_locations[++(*num_pipes)] = i;
+			data->pipe_locations[++(data->num_pipes)] = i;
 			args[i] = NULL;
 		}
 		i++;
 	}
-	*num_commands = *num_pipes + 1;
+	data->num_commands = data->num_pipes + 1;
 	return (i);
 }
 
-void	close_pipes(int num_pipes, int pipes[][2])
+void	close_pipes(t_pipe *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < num_pipes)
+	while (i < data->num_pipes)
 	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
+		close(data->pipes[i][0]);
+		close(data->pipes[i][1]);
 		i++;
 	}
 }
 
-void	create_pipes(int num_pipes, int pipes[][2])
+void	create_pipes(t_pipe *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < num_pipes)
+	while (i < data->num_pipes)
 	{
-		if (pipe(pipes[i]) == -1)
+		if (pipe(data->pipes[i]) == -1)
 		{
 			perror("pipe");
 			exit(EXIT_FAILURE);
@@ -61,8 +60,7 @@ void	create_pipes(int num_pipes, int pipes[][2])
 	}
 }
 
-void	exe_pipe(int i, int num_pipes, int pipes[][2],
-	char **args, int *pipe_locations)
+void	exe_pipe(int i, t_pipe *data, char **args)
 {
 	pid_t	pid;
 	char	*cmd_path;
@@ -75,10 +73,10 @@ void	exe_pipe(int i, int num_pipes, int pipes[][2],
 	}
 	if (pid == 0)
 	{
-		setup_pipe(i, num_pipes, pipes);
-		close_pipes(num_pipes, pipes);
-		cmd_path = get_cmd_path(args[pipe_locations[i] + 1]);
-		execve(cmd_path, args + pipe_locations[i] + 1, environ);
+		setup_pipe(i, data);
+		close_pipes(data);
+		cmd_path = get_cmd_path(args[data->pipe_locations[i] + 1]);
+		execve(cmd_path, args + data->pipe_locations[i] + 1, environ);
 		perror("execve");
 		exit(EXIT_FAILURE);
 	}
@@ -86,18 +84,12 @@ void	exe_pipe(int i, int num_pipes, int pipes[][2],
 
 int	execute_with_pipe(char **args)
 {
-	int	num_pipes;
-	int	num_commands;
-	int	pipe_locations[64];
-	int	pipes[100][2];
+	t_pipe	data;
 
-	num_pipes = 0;
-	num_commands = 0;
-	initialize_pipes_and_commands(args, &num_pipes,
-		&num_commands, pipe_locations);
-	create_pipes(num_pipes, pipes);
-	exe_pipe2(num_commands, num_pipes, pipes, args, pipe_locations);
-	close_pipes(num_pipes, pipes);
-	wait_for_commands(num_commands);
+	initialize_pipes_and_commands(args, &data);
+	create_pipes(&data);
+	exe_pipe2(&data, args);
+	close_pipes(&data);
+	wait_for_commands(&data);
 	return (1);
 }
