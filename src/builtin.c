@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:41 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 10:48:37 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:55:57 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ int	builtin_echo(char **args)
 	}
 	if (newline)
 		printf("\n");
+	g_exit_status = 0;
+	return (1);
+}
+
+int	builtin_help(char **args __attribute__((unused)))
+{
+	printf("WELCOME ON LOTTAVI & SIMONE MINISHELL HELP COMMAND FAGOTTINO MIO\n");
+	printf("\t-pwd\tfor current directory\n");
+	printf("\t-exit\tterminates the shell\n");
+	printf("\t-cd\tchanges directory\n");
+	printf("\t-echo\tprints the arguments\n");
+	printf("\t-unset\tunsets the environment variable\n");
+	printf("\t-env\tprints the environment variables\n");
+	printf("\t-il resto dei comandi lo fa execve, ma mai bene\n");
 	g_exit_status = 0;
 	return (1);
 }
