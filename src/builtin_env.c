@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/08 10:48:00 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 10:47:13 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	add_to_env(char *var)
 	i = 0;
 	while (environ[i] != NULL)
 		i++;
-	new_env = (char **)malloc((i + 2) * sizeof(char *));
+	new_env = (char **)ft_realloc(environ, sizeof(char *) * i, sizeof(char *) * (i + 2));
 	if (new_env == NULL)
 		return (-1);
 	j = 0;
@@ -124,7 +124,7 @@ int	builtin_env(char **args __attribute__((unused)))
 	char	**environ_copy;
 
 	i = 0;
-	environ_copy = ft_copy_environ(environ);
+	environ_copy = (char **)ft_realloc(environ, sizeof(char *) * i, sizeof(char *) * (i + 2));
 	if (environ_copy == NULL)
 	{
 		printf("Environment not initialized.\n");
@@ -136,6 +136,6 @@ int	builtin_env(char **args __attribute__((unused)))
 			printf("%s\n", environ_copy[i]);
 		i++;
 	}
-	free_environ_copy(environ_copy);
+	free(environ_copy);
 	return (1);
 }
