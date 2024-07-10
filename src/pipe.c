@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 17:14:23 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 18:45:50 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:00:40 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ int	execute_with_pipe(char **args)
 	int	num_pipes;
 	int	num_commands;
 	int	pipe_locations[64];
+	int	pipes[100][2];
 
 	num_pipes = 0;
 	num_commands = 0;
-	int	pipes[num_pipes][2];
 	initialize_pipes_and_commands(args, &num_pipes,
 		&num_commands, pipe_locations);
 	create_pipes(num_pipes, pipes);

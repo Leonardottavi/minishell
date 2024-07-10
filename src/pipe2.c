@@ -6,12 +6,11 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:22:48 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 17:26:33 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:01:22 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	setup_pipe(int i, int num_pipes, int pipes[][2])
 {
