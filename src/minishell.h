@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 16:30:05 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 17:24:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,24 @@ char			*get_input(char *buffer);
 char			**get_args(char *input, char **args);
 int				main_loop(char *input, char **args_buffer);
 int				all_whitespace(char *s);
-int	init_resources(char **input, char ***args_buffer);
+int				init_resources(char **input, char ***args_buffer);
 
 //function executers
 int				execute(char **args);
 
 //pipe functions
+int				count_pipes_and_commands(char **args,
+					int *num_pipes, int *num_commands, int *pipe_locations);
+void			close_pipes(int num_pipes, int pipes[][2]);
+void			create_pipes(int num_pipes, int pipes[][2]);
+void			exe_pipe(int i, int num_pipes, int pipes[][2],
+					char **args, int *pipe_locations);
+void			setup_pipe(int i, int num_pipes, int pipes[][2]);
+void			wait_for_commands(int num_commands);
+void			initialize_pipes_and_commands(char **args, int *num_pipes,
+					int *num_commands, int *pipe_locations);
+void			exe_pipe2(int num_commands, int num_pipes, int pipes[][2],
+					char **args, int *pipe_locations);
 int				execute_with_pipe(char **args);
 
 //signals
@@ -78,8 +90,10 @@ int				strfind(char *str, char p);
 
 //expansion
 char			*expander(char *input);
-bool			expand_variable(char **result, char **start, size_t *result_len);
-bool			handle_var_value(char **result, char *varvalue, size_t *result_len);
+bool			expand_variable(char **result,
+					char **start, size_t *result_len);
+bool			handle_var_value(char **result,
+					char *varvalue, size_t *result_len);
 bool			handle_exit_status(char **result, size_t *result_len);
 bool			handle_empty_var_name(char **result, size_t *result_len);
 
