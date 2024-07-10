@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:08:57 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 15:02:40 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:15:33 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,28 @@ int	count_pipes_and_commands(char **args, int *num_pipes, int *num_commands, int
 	return (i);
 }
 
-void close_pipes(int num_pipes, int pipes[][2]) {
-	int i = 0;
-	while (i < num_pipes) {
+void	close_pipes(int num_pipes, int pipes[][2])
+{
+	int	i;
+
+	i = 0;
+	while (i < num_pipes)
+	{
 		close(pipes[i][0]);
 		close(pipes[i][1]);
 		i++;
 	}
 }
 
-void create_pipes(int num_pipes, int pipes[][2]) {
-	int i = 0;
-	while (i < num_pipes) {
-		if (pipe(pipes[i]) == -1) {
+void	create_pipes(int num_pipes, int pipes[][2])
+{
+	int	i;
+
+	i = 0;
+	while (i < num_pipes)
+	{
+		if (pipe(pipes[i]) == -1)
+		{
 			perror("pipe");
 			exit(EXIT_FAILURE);
 		}
@@ -51,21 +60,29 @@ void create_pipes(int num_pipes, int pipes[][2]) {
 	}
 }
 
-void pipe_exe(int i, int num_pipes, int pipes[][2], char **args, int *pipe_locations) {
-	pid_t pid;
-	if ((pid = fork()) == -1) {
+void	pipe_exe(int i, int num_pipes, int pipes[][2], char **args, int *pipe_locations)
+{
+	pid_t	pid;
+
+	if ((pid = fork()) == -1)
+	{
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	if (pid == 0) {
-		if (i > 0) {
-			if (dup2(pipes[i - 1][0], STDIN_FILENO) == -1) {
+	if (pid == 0)
+	{
+		if (i > 0)
+		{
+			if (dup2(pipes[i - 1][0], STDIN_FILENO) == -1)
+			{
 				perror("dup2");
 				exit(EXIT_FAILURE);
 			}
 		}
-		if (i < num_pipes) {
-			if (dup2(pipes[i][1], STDOUT_FILENO) == -1) {
+		if (i < num_pipes)
+		{
+			if (dup2(pipes[i][1], STDOUT_FILENO) == -1)
+			{
 				perror("dup2");
 				exit(EXIT_FAILURE);
 			}
@@ -78,14 +95,19 @@ void pipe_exe(int i, int num_pipes, int pipes[][2], char **args, int *pipe_locat
 	}
 }
 
-void wait_for_commands(int num_commands) {
-	int i = 0;
-	while (i++ < num_commands) {
+void	wait_for_commands(int num_commands)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < num_commands)
+	{
 		wait(NULL);
 	}
 }
 
-int execute_with_pipe(char **args) {
+int	execute_with_pipe(char **args)
+{
 	int num_pipes = 0;
 	int num_commands = 0;
 	int pipe_locations[64];
@@ -93,7 +115,8 @@ int execute_with_pipe(char **args) {
 	int pipes[num_pipes][2];
 	create_pipes(num_pipes, pipes);
 	i = 0;
-	while (i < num_commands) {
+	while (i < num_commands)
+	{
 		pipe_exe(i, num_pipes, pipes, args, pipe_locations);
 		i++;
 	}
