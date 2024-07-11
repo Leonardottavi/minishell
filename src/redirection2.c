@@ -6,13 +6,13 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:24:50 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 18:20:47 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:06:07 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	control(char **args, int i)
+void	ft_control(char **args, int i)
 {
 	if (!args[i + 1] && i == 0)
 	{
@@ -22,7 +22,7 @@ void	control(char **args, int i)
 		args[2] = NULL;
 	}
 	else if (!args[i + 1] && ft_strcmp(args[i - 1], "cat") == 0)
-		strcpy(args[i - 1], "echo");
+		ft_strcpy(args[i - 1], "echo");
 	else
 	{
 		while (args[i + 1])
@@ -41,7 +41,7 @@ void	find_comp(char **args, int i, char **comparison)
 	j = i + 1;
 	if (ft_strlen(args[i]) == 2)
 	{
-		*comparison = strdup(args[i + 1]);
+		*comparison = ft_strdup(args[i + 1]);
 		while (args[j + 1])
 		{
 			args[j] = args[j + 1];
@@ -50,7 +50,7 @@ void	find_comp(char **args, int i, char **comparison)
 		args[j] = NULL;
 	}
 	else
-		*comparison = strdup(&args[i][2]);
+		*comparison = ft_strdup(&args[i][2]);
 }
 
 void	inwhile(int *j, int i, char *buffer, char **args)
@@ -102,7 +102,7 @@ void	redirect_heredoc(char **args, int i)
 		free(buffer);
 		buffer = readline("heredoc> ");
 	}
-	control(args, i);
+	ft_control(args, i);
 	free(comparison);
 	free(buffer);
 }

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:06:13 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 21:44:16 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:04:13 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	builtin_export(char **args)
 	i = 1;
 	while (args[i] != NULL)
 	{
-		remove_from_env(args[i], strfind(args[i], '='));
-		if (strfind(args[i], '=') != -1 && add_to_env(args[i]) != 0)
+		remove_from_env(args[i], ft_strfind(args[i], '='));
+		if (ft_strfind(args[i], '=') != -1 && add_to_env(args[i]) != 0)
 		{
 			perror("mini-shell: export");
 			return (1);

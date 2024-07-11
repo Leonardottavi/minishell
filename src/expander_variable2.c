@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_varriable2.c                              :+:      :+:    :+:   */
+/*   expander_variable2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:51:14 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 15:51:36 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:03:18 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	handle_exit_status(char **result, size_t *result_len)
 	char	exit_status_str[4];
 	size_t	exit_status_len;
 
-	sprintf(exit_status_str, "%d", g_exit_status);
+	printf("exit_status: %d\n", g_exit_status);
 	exit_status_len = ft_strlen(exit_status_str);
 	if (*result_len + exit_status_len >= MAX_BUFFER_SIZE)
 	{

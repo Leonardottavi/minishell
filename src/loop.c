@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:27:20 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 16:29:15 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:06:07 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*process_input(char *input)
 {
 	char	*input_expanded;
 
-	if (strfind(input, '$') != -1
-		&& (strfind(input, '$') - strfind(input, '\'')) != 1)
+	if (ft_strfind(input, '$') != -1
+		&& (ft_strfind(input, '$') - ft_strfind(input, '\'')) != 1)
 		input_expanded = expander(input);
 	else
 		input_expanded = strdup(input);
@@ -75,7 +75,7 @@ int	main_loop(char *input, char **args_buffer)
 		{
 			input_expanded = process_input(input);
 			args = get_args(input_expanded, args_buffer);
-			redirection_control(args);
+			redirection_ft_control(args);
 			loop_status = execute(args);
 			free(input_expanded);
 		}

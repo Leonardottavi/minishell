@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:11:06 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/06 17:25:44 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:06:07 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	redirect_input(char **args, int i)
 	args[i] = NULL;
 }
 
-void	redirection_control(char **args)
+void	redirection_ft_control(char **args)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 18:13:11 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 16:03:55 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:04:13 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*remove_newline(char *str)
 	return (str);
 }
 
-int	strfind(char *str, char p)
+int	ft_strfind(char *str, char p)
 {
 	int	i;
 

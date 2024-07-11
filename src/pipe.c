@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 17:14:23 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 21:04:21 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:04:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	count_pipes_and_commands(char **args, t_pipe *data)
 	data->pipe_locations[0] = -1;
 	while (args[i])
 	{
-		if (strcmp(args[i], "|") == 0)
+		if (ft_strcmp(args[i], "|") == 0)
 		{
 			data->pipe_locations[++(data->num_pipes)] = i;
 			args[i] = NULL;

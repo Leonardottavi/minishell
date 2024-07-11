@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 21:05:38 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:06:07 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct t_pipe
 
 extern int		g_exit_status;
 extern char		**environ;
-int				strfind(char *str, char p);
+int				ft_strfind(char *str, char p);
 char			**get_builtin_commands(void);
 int				(*(*get_builtin_functions(void))[])(char **);
 int				builtin_exit(char **args);
@@ -91,14 +91,14 @@ char			*get_cmd_path(char *cmd);
 int				execute_without_pipe(char **args);
 
 //redirect functions
-void			redirection_control(char **args);
+void			redirection_ft_control(char **args);
 void			redirect_heredoc(char **args, int i);
 
 //utils
 char			**ft_copy_environ(char **environ);
 void			free_env(char **environ_copy);
 char			*remove_newline(char *str);
-int				strfind(char *str, char p);
+int				ft_strfind(char *str, char p);
 
 //expansion
 char			*expander(char *input);

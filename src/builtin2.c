@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:54:27 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 10:56:16 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:02:12 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ int	builtin_pwd(char **args __attribute__((unused)))
 
 int	builtin_exit(char **args)
 {
-	if (args[1] != NULL)
-	{
-		printf("stai cercando di uscire o di ballare la samba?\n");
-		g_exit_status = 1;
-		return (1);
-	}
-	else
 	{
 		free_env(args);
 		exit(g_exit_status);
