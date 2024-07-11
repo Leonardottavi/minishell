@@ -5,102 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 17:58:58 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/09 15:11:02 by lottavi          ###   ########.fr       */
+/*   Created: 2024/06/29 17:14:23 by lottavi           #+#    #+#             */
+/*   Updated: 2024/07/11 14:04:37 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_with_pipe(char **args) {
-    int num_pipes = 0;
-    int i;
-    int pipe_locations[64]; // Array to store locations of pipes
-    pipe_locations[0] = -1; // Initial value indicating no pipe before the first command
+int	count_pipes_and_commands(char **args, t_pipe *data)
+{
+	int	i;
 
-    // Find pipe locations in args array
-    i = 0;
-    while (args[i]) {
-        if (strcmp(args[i], "|") == 0)
-        {
-            pipe_locations[++num_pipes] = i; // Store the index of pipe symbol
-            args[i] = NULL; // Replace "|" with NULL to mark end of arguments for execv
-        }
-        i++;
-    }
-
-    int num_commands = num_pipes + 1; // Number of commands to be executed
-    int pipes[num_pipes][2]; // Array to store pipes
-
-    // Create pipes
-    i=0;
-    while (i < num_pipes) {
-        if (pipe(pipes[i]) == -1) {
-            perror("pipe");
-            exit(EXIT_FAILURE);
-        }
-        i++;
-    }
-
-    // Execute commands using fork and execv
-    i = 0;
-    while (i < num_commands) {
-        pid_t pid;
-        if ((pid = fork()) == -1) {
-            perror("fork");
-            exit(EXIT_FAILURE);
-        }
-
-        if (pid == 0) {
-            // Child process
-
-            // Set up stdin redirection for all but first command
-            if (i > 0) {
-                if (dup2(pipes[i - 1][0], STDIN_FILENO) == -1) {
-                    perror("dup2");
-                    exit(EXIT_FAILURE);
-                }
-            }
-
-            // Set up stdout redirection for all but last command
-            if (i < num_pipes) {
-                if (dup2(pipes[i][1], STDOUT_FILENO) == -1) {
-                    perror("dup2");
-                    exit(EXIT_FAILURE);
-                }
-            }
-
-            // Close all pipe fds
-            int j = 0;
-            while (j < num_pipes) {
-                close(pipes[j][0]);
-                close(pipes[j][1]);
-                j++;
-            }
-
-            // Execute the command
-			char *cmd_path = get_cmd_path(args[pipe_locations[i] + 1]);
-			execve(cmd_path, args + pipe_locations[i] + 1, environ);
-			perror("execve");
-            exit(EXIT_FAILURE);
-        }
-        i++;
-    }
-
-    // Close all pipe fds in parent process
-    i = 0;
-    while (i < num_pipes)
-    {
-        close(pipes[i][0]);
-        close(pipes[i][1]);
-        i++;
-    }
-
-
-    i=0;
-    while (i++ < num_commands)
+	i = 0;
+	data->pipe_locations[0] = -1;
+	while (args[i])
 	{
-        wait(NULL);
+		if (ft_strcmp(args[i], "|") == 0)
+		{
+			data->pipe_locations[++(data->num_pipes)] = i;
+			args[i] = NULL;
+		}
+		i++;
 	}
-	return(1);
+	data->num_commands = data->num_pipes + 1;
+	return (i);
+}
+
+void	close_pipes(t_pipe *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_pipes)
+	{
+		close(data->pipes[i][0]);
+		close(data->pipes[i][1]);
+		i++;
+	}
+}
+
+void	create_pipes(t_pipe *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_pipes)
+	{
+		if (pipe(data->pipes[i]) == -1)
+		{
+			perror("pipe");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
+void	exe_pipe(int i, t_pipe *data, char **args)
+{
+	pid_t	pid;
+	char	*cmd_path;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		setup_pipe(i, data);
+		close_pipes(data);
+		cmd_path = get_cmd_path(args[data->pipe_locations[i] + 1]);
+		execve(cmd_path, args + data->pipe_locations[i] + 1, environ);
+		perror("execve");
+		exit(EXIT_FAILURE);
+	}
+}
+
+int	execute_with_pipe(char **args)
+{
+	t_pipe	data;
+
+	initialize_pipes_and_commands(args, &data);
+	create_pipes(&data);
+	exe_pipe2(&data, args);
+	close_pipes(&data);
+	wait_for_commands(&data);
+	return (1);
 }

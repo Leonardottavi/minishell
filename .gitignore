@@ -4,3 +4,5 @@ minishell
 .vscode
 obj
 .vscode
+backup
+libft.a

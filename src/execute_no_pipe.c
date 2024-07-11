@@ -6,7 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:54:00 by lottavi           #+#    #+#             */
-/*   Updated: 2024/07/10 11:57:53 by lottavi          ###   ########.fr       */
+/*   Updated: 2024/07/11 14:02:29 by lottavi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_command(char **args)
 {
 	char	*cmd_path;
 
-	if (args[0] != NULL && strncmp(args[0], "/bin/", 5) == 0)
+	if (args[0] != NULL && ft_strncmp(args[0], "/bin/", 5) == 0)
 	{
 		if (-1 == execve(args[0], args, environ))
 		{
