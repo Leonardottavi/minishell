@@ -6,11 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:24:47 by lottavi           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/07/10 12:28:44 by lottavi          ###   ########.fr       */
-=======
 /*   Updated: 2024/07/10 18:43:24 by lottavi          ###   ########.fr       */
->>>>>>> LOTTAVI
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +14,6 @@
 
 int	g_exit_status = 0;
 
-<<<<<<< HEAD
-=======
 char	**get_args(char *input, char **args)
 {
 	int	i;
@@ -50,7 +44,6 @@ int	all_whitespace(char *s)
 	return (1);
 }
 
->>>>>>> LOTTAVI
 char	*get_input(char *buffer)
 {
 	buffer = readline("minishell> ");

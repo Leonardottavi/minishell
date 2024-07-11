@@ -6,11 +6,7 @@
 /*   By: lottavi <lottavi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:22:17 by lottavi           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/07/10 12:40:44 by lottavi          ###   ########.fr       */
-=======
 /*   Updated: 2024/07/11 14:06:07 by lottavi          ###   ########.fr       */
->>>>>>> LOTTAVI
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +108,5 @@ bool			handle_var_value(char **result,
 					char *varvalue, size_t *result_len);
 bool			handle_exit_status(char **result, size_t *result_len);
 bool			handle_empty_var_name(char **result, size_t *result_len);
-
-//args
-char			*remove_newline(char *str);
-void			skip_whitespace(char **input);
-void			handle_quotes(char **input, int *in_quotes, char *quote_char);
-void			find_end_of_token(char **input, int in_quotes, char quote_char);
-void			handle_end_of_token(char **input, int *in_quotes);
-int				all_whitespace(char *s);
-char			**get_args(char *input, char **args);
 
 #endif
